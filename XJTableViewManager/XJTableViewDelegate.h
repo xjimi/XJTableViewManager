@@ -5,8 +5,6 @@
 //  Created by XJIMI on 2018/12/20.
 //
 
-#import "XJTableViewManager.h"
-
 @class XJTableViewManager;
 
 @protocol XJTableViewDelegate < NSObject >

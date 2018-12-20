@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage      = "https://github.com/xjimi/XJTableViewManager"
   s.license       = { :type => 'MIT', :file => 'LICENSE' }
   s.author        = { "XJIMI" => "fn5128@gmail.com" }
-  s.source        = { :git => "https://github.com/xjimi/XJTableViewManager.git", :tag => s.version.to_s }
+  s.source        = { :git => "https://github.com/xjimi/XJTableViewManager.git", :tag => s.version }
   s.source_files  = "XJTableViewManager", "XJTableViewManager/**/*.{h,m}"
   s.requires_arc  = true
   s.frameworks    = 'Foundation', 'UIKit'

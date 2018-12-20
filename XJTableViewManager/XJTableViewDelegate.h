@@ -5,14 +5,12 @@
 //  Created by XJIMI on 2018/12/20.
 //
 
-#ifndef XJTableViewDelegate_h
-#define XJTableViewDelegate_h
-
 #import "XJTableViewManager.h"
 
 @class XJTableViewManager;
 
 @protocol XJTableViewDelegate < NSObject >
+
 @optional
 
 - (NSInteger)xj_tableView:(XJTableViewManager *)tableView numberOfRowsInSection:(NSInteger)section;
@@ -43,6 +41,3 @@
          toIndexPath:(nonnull NSIndexPath *)destinationIndexPath;
 
 @end
-
-
-#endif /* XJTableViewDelegate_h */

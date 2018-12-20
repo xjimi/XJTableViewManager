@@ -31,7 +31,6 @@
     [super awakeFromNib];
 }
 
-
 - (void)reloadData:(id)data {
 }
 

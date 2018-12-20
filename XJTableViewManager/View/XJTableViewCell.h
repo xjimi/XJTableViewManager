@@ -14,10 +14,8 @@
 
 @optional
 - (void)xj_tableViewCell:(UITableViewCell *)tableViewCell
-didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
-
-- (void)xj_tableViewCell:(UITableViewCell *)tableViewCell
-            didTapButton:(UIButton *)button;
+           didSelectItem:(id)item
+             atIndexPath:(NSIndexPath *)indexPath;
 
 - (void)xj_refreshTableViewCell:(UITableViewCell *)tableViewCell;
 

@@ -1,0 +1,18 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '9.0'
+inhibit_all_warnings!
+use_frameworks!
+
+def local_pods
+  pod 'XJTableViewManager', :path => '../'
+end
+
+def demo_pods
+  pod 'Masonry'
+  pod 'YYModel'
+end
+
+target 'Demo' do
+  local_pods
+  demo_pods
+end

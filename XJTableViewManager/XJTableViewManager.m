@@ -411,4 +411,16 @@
     }
 }
 
+- (XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section >= self.data.count  ||
+        indexPath.row >= dataModel.rows.count) {
+        return nil;
+    }
+
+    XJTableViewDataModel *dataModel = [self.data objectAtIndex:indexPath.section];
+    XJTableViewCellModel *cellModel = dataModel.rows[indexPath.row];
+    return cellModel;
+}
+
 @end

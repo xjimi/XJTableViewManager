@@ -46,6 +46,6 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 
 - (void)insertData:(NSArray *)data;
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

@@ -326,6 +326,7 @@
     XJTableViewDataModel *dataModel = [self.data objectAtIndex:indexPath.section];
     if (indexPath.row >= dataModel.rows.count) return;
     XJTableViewCellModel *cellModel = [dataModel.rows objectAtIndex:indexPath.row];
+    [(XJTableViewCell *)cell willDisplay];
     if (self.willDisplayCellBlock) self.willDisplayCellBlock(cellModel, (XJTableViewCell *)cell, indexPath);
 }
 

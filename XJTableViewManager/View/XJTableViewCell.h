@@ -34,4 +34,6 @@
 
 - (void)reloadData:(id)data;
 
+- (void)willDisplay;
+
 @end

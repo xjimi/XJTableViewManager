@@ -413,12 +413,13 @@
 
 - (XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section >= self.data.count  ||
-        indexPath.row >= dataModel.rows.count) {
+    if (indexPath.section >= self.data.count) {
         return nil;
     }
-
     XJTableViewDataModel *dataModel = [self.data objectAtIndex:indexPath.section];
+    if (indexPath.row >= dataModel.rows.count) {
+        return nil;
+    }
     XJTableViewCellModel *cellModel = dataModel.rows[indexPath.row];
     return cellModel;
 }

@@ -50,6 +50,8 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 - (void)insertDataModel:(XJTableViewDataModel *)dataModel
          atSectionIndex:(NSInteger)sectionIndex;
 
+- (void)appendRowsWithDataModel:(XJTableViewDataModel *)dataModel;
+
 - (XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath;
 
 - (XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath;

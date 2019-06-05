@@ -16,6 +16,9 @@
 
 @property (nonatomic, strong) XJTableViewManager *tableView;
 
+@property (weak, nonatomic) IBOutlet UITextField *inputField;
+
+@property (weak, nonatomic) IBOutlet UIView *controlsView;
 
 @end
 
@@ -51,7 +54,38 @@
     return headerModel;
 }
 
-- (XJTableViewDataModel *)createDataModel
+- (IBAction)action_insertSection
+{
+    if (!self.inputField.text.length) return;
+    
+    NSInteger sectionIndex = [self.inputField.text integerValue];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        XJTableViewDataModel *dataModel = [self createDataModel];
+        [self.tableView insertDataModel:dataModel atSectionIndex:sectionIndex];
+    });
+}
+
+- (IBAction)action_appendRows
+{
+    if (!self.inputField.text.length) return;
+    
+    NSInteger sectionIndex = [self.inputField.text integerValue];
+    if (sectionIndex >= self.tableView.data.count) return;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        XJTableViewDataModel *dataModel = [self.tableView.data objectAtIndex:sectionIndex];
+        XJTableViewDataModel *newDataModel = [XJTableViewDataModel
+                                              modelWithSection:dataModel.section
+                                              rows:[self createRows]];
+        [self.tableView appendRowsWithDataModel:newDataModel];
+        
+    });
+
+}
+
+
+- (NSMutableArray *)createRows
 {
     NSMutableArray *rows = [NSMutableArray array];
     for (int i = 0; i < 10; i++)
@@ -60,18 +94,21 @@
         model.albumName = @"Scorpion (OVO Updated Version) [iTunes][2018]";
         model.artistName = @"Drake";
         model.imageName = @"drake";
-
+        
         XJTableViewCellModel *cellModel = [XJTableViewCellModel
                                            modelWithReuseIdentifier:[AlbumCell identifier]
                                            cellHeight:80.0f
                                            data:model];
         [rows addObject:cellModel];
     }
+    return rows;
+}
 
-
+- (XJTableViewDataModel *)createDataModel
+{
     XJTableViewDataModel *dataModel = [XJTableViewDataModel
                                        modelWithSection:[self createHeaderModel]
-                                       rows:rows];
+                                       rows:[self createRows]];
     return dataModel;
 }
 
@@ -89,7 +126,7 @@
     tableView.backgroundColor = [UIColor colorWithWhite:0.1020 alpha:1.0000];
     [self.view addSubview:tableView];
 
-    __weak typeof(self)weakSelf = self;
+   // __weak typeof(self)weakSelf = self;
     [tableView addWillDisplayCellBlock:^(XJTableViewCellModel *cellModel,
                                           XJTableViewCell *cell,
                                           NSIndexPath *indexPath)
@@ -111,12 +148,17 @@
 
         //AlbumsViewController *vc = [[AlbumsViewController alloc] init];
         //[weakSelf.navigationController pushViewController:vc animated:YES];
-        [self action_createDataModel];
+        //[self action_createDataModel];
 
     }];
 
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.top.mas_equalTo(self.controlsView.mas_bottom);
+        make.left.mas_equalTo(self.view);
+        make.right.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.view);
+
+
     }];
 
     self.tableView = tableView;

@@ -154,14 +154,11 @@
     }
 
     [self registerCellWithData:@[dataModel]];
-    NSInteger dataCount = self.data.count;
-
-    NSLog(@"sectionIndex : %ld   ::   %ld", sectionIndex, dataCount);
+    NSLog(@"sectionIndex : %ld   ::   %ld", sectionIndex, self.data.count);
 
     if (sectionIndex > self.data.count) {
-        sectionIndex = self.data.count - 1;
+        sectionIndex = self.data.count;
     }
-
 
     [self.data insertObject:dataModel atIndex:sectionIndex];
 

@@ -32,11 +32,17 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixI-oH-NzO">
                                         <rect key="frame" x="6" y="33" width="196" height="27"/>
-                                        <state key="normal" title="append rows"/>
+                                        <state key="normal" title="Append Rows"/>
+                                        <connections>
+                                            <action selector="action_appendRows" destination="BYZ-38-t0r" eventType="touchUpInside" id="MWx-iN-y61"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXG-Bn-Wgd">
                                         <rect key="frame" x="212" y="33" width="196" height="27"/>
-                                        <state key="normal" title="append rows"/>
+                                        <state key="normal" title="Insert Section"/>
+                                        <connections>
+                                            <action selector="action_insertSection" destination="BYZ-38-t0r" eventType="touchUpInside" id="wy7-xH-hCf"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -65,6 +71,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="bnc-uc-zoe"/>
+                    <connections>
+                        <outlet property="controlsView" destination="T2K-wg-pQO" id="pE0-7r-C2z"/>
+                        <outlet property="inputField" destination="zkb-VX-qJS" id="yMb-aQ-64V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

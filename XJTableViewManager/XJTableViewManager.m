@@ -57,13 +57,11 @@
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.delaysContentTouches = YES;
     self.alwaysBounceVertical = YES;
+
     self.estimatedRowHeight = 0.0f;
     self.estimatedSectionHeaderHeight = 0.0f;
     self.estimatedSectionFooterHeight = 0.0f;
     self.backgroundColor = [UIColor clearColor];
-
-    self.data = [NSMutableArray array];
-    self.registeredCells = [NSMutableArray array];
 
     if (self.style == UITableViewStylePlain) {
         self.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -73,15 +71,8 @@
         self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 
-    if (![UITableViewCell appearance].preservesSuperviewLayoutMargins)
-    {
-        /*
-         搭配xib調整 使contentView leading 對齊 Separator leading
-         https://stackoverflow.com/questions/27420888/uitableviewcell-with-autolayout-left-margin-different-on-iphone-and-ipad/31133547#31133547
-         */
-        [UITableViewCell appearance].preservesSuperviewLayoutMargins = YES;
-        [UITableViewCell appearance].contentView.preservesSuperviewLayoutMargins = YES;
-    }
+    self.data = [NSMutableArray array];
+    self.registeredCells = [NSMutableArray array];
 }
 
 - (void)addDidSelectRowBlock:(XJTableViewDidSelectRowBlock)rowBlock {
@@ -112,40 +103,74 @@
     [self reloadData];
 }
 
-- (void)insertData:(NSArray *)data
+- (void)appendRowsWithDataModel:(XJTableViewDataModel *)dataModel
 {
-    if (!_data) _data = [NSMutableArray array];
-    
-    [self registerCellWithData:data];
-    
-    for (XJTableViewDataModel *dataModel in data)
-    {
-        if (dataModel.section)
-        {
-            [_data addObject:dataModel];
-            NSInteger sectionNum = _data.count - 1;
-            [UIView performWithoutAnimation:^{
-                [self insertSections:[NSIndexSet indexSetWithIndex:sectionNum] withRowAnimation:UITableViewRowAnimationNone];
-            }];
-        }
-        else if (dataModel.rows.count)
-        {
-            XJTableViewDataModel *curDataModel = _data.lastObject;
-            [curDataModel.rows addObjectsFromArray:dataModel.rows];
-            NSInteger sectionNum = _data.count - 1;
-            NSInteger itemNum = curDataModel.rows.count;
-            NSInteger numberOfRows = [self numberOfRowsInSection:sectionNum];
-            
-            NSMutableArray *indexPaths = [NSMutableArray array];
-            for (NSUInteger i = numberOfRows; i < itemNum; i++) {
-                [indexPaths addObject:[NSIndexPath indexPathForItem:i inSection:sectionNum]];
-            }
+    //將 rows append 到對應的 section 下
+    if (!dataModel.section && !dataModel.rows.count) return;
 
-            [UIView performWithoutAnimation:^{
-                [self insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-            }];
+    if (!_data)
+    {
+        self.data = @[dataModel].mutableCopy;
+        return;
+    }
+
+    [self registerCellWithData:@[dataModel]];
+
+    NSInteger sessionIndex = self.data.count - 1;
+    for (XJTableViewDataModel *data in self.data)
+    {
+        if ([dataModel.section.sectionId isEqualToString:data.section.sectionId]) {
+            sessionIndex = [self.data indexOfObject:data];
+            break;
         }
     }
+
+    XJTableViewDataModel *curDataModel = [self.data objectAtIndex:sessionIndex];
+    NSInteger numberOfRows = curDataModel.rows.count;
+    NSInteger totalRowsCount = curDataModel.rows.count + dataModel.rows.count;
+    NSMutableArray *indexPaths = [NSMutableArray array];
+    for (NSInteger i = numberOfRows; i < totalRowsCount; i++) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:sessionIndex]];
+    }
+    [curDataModel.rows addObjectsFromArray:dataModel.rows];
+
+    [self beginUpdates];
+    [self insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    [self endUpdates];
+}
+
+- (void)addDataModel:(XJTableViewDataModel *)dataModel {
+    [self insertDataModel:dataModel atSectionIndex:self.data.count];
+}
+
+- (void)insertDataModel:(XJTableViewDataModel *)dataModel
+         atSectionIndex:(NSInteger)sectionIndex
+{
+    if (!dataModel.section && !dataModel.rows.count) return;
+
+    if (!self.data) {
+        self.data = @[dataModel].mutableCopy;
+        return;
+    }
+
+    [self registerCellWithData:@[dataModel]];
+    NSInteger dataCount = self.data.count;
+
+    NSLog(@"sectionIndex : %ld   ::   %ld", sectionIndex, dataCount);
+
+    if (sectionIndex > self.data.count) {
+        sectionIndex = self.data.count - 1;
+    }
+
+
+    [self.data insertObject:dataModel atIndex:sectionIndex];
+
+    [self beginUpdates];
+
+    [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+
+    [self endUpdates];
+
 }
 
 - (void)registerCellWithData:(NSArray *)data
@@ -191,6 +216,7 @@
             }
         }
 
+
         if (dataModel.rows)
         {
             for (XJTableViewCellModel *cellModel in dataModel.rows)
@@ -218,20 +244,47 @@
     }
 }
 
-#pragma mark - TableView DataSource
+#pragma mark - TableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.data.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     XJTableViewDataModel *dataModel = self.data[section];
-    if (![self.tableViewDelegate respondsToSelector:@selector(xj_tableView:numberOfRowsInSection:)]) {
-        return dataModel.rows.count;
-    } else {
-        return [self.tableViewDelegate xj_tableView:tableView numberOfRowsInSection:section];
+    if (self.style == UITableViewStylePlain) return dataModel.section.height;
+    return dataModel.section.height;// ? : 0.0001;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    XJTableViewDataModel *dataModel = self.data[section];
+    if (self.style == UITableViewStylePlain) return dataModel.footer.height;
+    return dataModel.footer.height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:viewForHeaderInSection:)]) {
+        return [self.tableViewDelegate xj_tableView:self viewForHeaderInSection:section];
     }
+
+    XJTableViewDataModel *dataModel = self.data[section];
+    XJTableViewHeader *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataModel.section.identifier];
+    headerView.delegate = dataModel.section.delegate;
+    [headerView setNeedsLayout];
+    [headerView layoutIfNeeded];
+    [headerView reloadData:dataModel.section.data];
+    return headerView;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    XJTableViewDataModel *dataModel = self.data[section];
+    XJTableViewFooter *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataModel.footer.identifier];
+    [footerView reloadData:dataModel.footer.data];
+    return footerView;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -256,11 +309,32 @@
     return nil;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    XJTableViewDataModel *dataModel = self.data[section];
+    if (![self.tableViewDelegate respondsToSelector:@selector(xj_tableView:numberOfRowsInSection:)]) {
+        return dataModel.rows.count;
+    } else {
+        return [self.tableViewDelegate xj_tableView:tableView numberOfRowsInSection:section];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:heightForRowAtIndexPath:)]) {
+        CGFloat height = [self.tableViewDelegate xj_tableView:tableView heightForRowAtIndexPath:indexPath];
+        if (height != 0) return height;
+    }
+
+    XJTableViewDataModel *dataModel = [self.data objectAtIndex:indexPath.section];
+    XJTableViewCellModel *cellModel = [dataModel.rows objectAtIndex:indexPath.row];
+    return cellModel.height;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:cellForRowAtIndexPath:)]) {
-        UITableViewCell *cell = [self.tableViewDelegate xj_tableView:tableView cellForRowAtIndexPath:indexPath];
-        if (cell) return cell;
+        return [self.tableViewDelegate xj_tableView:tableView cellForRowAtIndexPath:indexPath];
     }
 
     XJTableViewDataModel *dataModel = [self.data objectAtIndex:indexPath.section];
@@ -274,59 +348,11 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    XJTableViewDataModel *dataModel = self.data[section];
-    if (self.style == UITableViewStylePlain) return dataModel.section.height;
-    return dataModel.section.height;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    XJTableViewDataModel *dataModel = self.data[section];
-    if (self.style == UITableViewStylePlain) return dataModel.footer.height;
-    //if (self.data.count != section+1) return dataModel.footer.height ? : CGFLOAT_MIN;
-    return dataModel.footer.height;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:heightForRowAtIndexPath:)]) {
-        CGFloat height = [self.tableViewDelegate xj_tableView:tableView heightForRowAtIndexPath:indexPath];
-        return height;
-    }
-
-    XJTableViewDataModel *dataModel = [self.data objectAtIndex:indexPath.section];
-    XJTableViewCellModel *cellModel = [dataModel.rows objectAtIndex:indexPath.row];
-    return cellModel.height;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:viewForHeaderInSection:)]) {
-        return [self.tableViewDelegate xj_tableView:self viewForHeaderInSection:section];
-    }
-
-    XJTableViewDataModel *dataModel = self.data[section];
-    XJTableViewHeader *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataModel.section.identifier];
-    [headerView reloadData:dataModel.section.data];
-    return headerView;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    XJTableViewDataModel *dataModel = self.data[section];
-    XJTableViewFooter *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataModel.footer.identifier];
-    [footerView reloadData:dataModel.footer.data];
-    return footerView;
-}
-
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XJTableViewDataModel *dataModel = [self.data objectAtIndex:indexPath.section];
     if (indexPath.row >= dataModel.rows.count) return;
     XJTableViewCellModel *cellModel = [dataModel.rows objectAtIndex:indexPath.row];
-    [(XJTableViewCell *)cell willDisplay];
     if (self.willDisplayCellBlock) self.willDisplayCellBlock(cellModel, (XJTableViewCell *)cell, indexPath);
 }
 
@@ -394,7 +420,6 @@
     }
 }
 
-
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -411,6 +436,8 @@
     }
 }
 
+#pragma mark
+
 - (XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section >= self.data.count) {
@@ -420,8 +447,23 @@
     if (indexPath.row >= dataModel.rows.count) {
         return nil;
     }
-    XJTableViewCellModel *cellModel = dataModel.rows[indexPath.row];
+    XJTableViewCellModel *cellModel = [dataModel.rows objectAtIndex:indexPath.row];
     return cellModel;
+}
+
+- (XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section >= self.data.count) {
+        return nil;
+    }
+    XJTableViewDataModel *dataModel = [self.data objectAtIndex:indexPath.section];
+    return dataModel.section;
+}
+
+- (NSString *)sessionIdAtIndexPath:(NSIndexPath *)indexPath
+{
+    XJTableViewHeaderModel *headerModel = [self headerModelAtIndexPath:indexPath];
+    return headerModel.sectionId;
 }
 
 @end

@@ -8,6 +8,7 @@
 @protocol XJTableViewDelegate < NSObject >
 
 @optional
+
 - (NSInteger)xj_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 
 - (CGFloat)xj_tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;

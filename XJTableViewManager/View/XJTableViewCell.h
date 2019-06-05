@@ -13,11 +13,9 @@
 @protocol XJTableViewCellDelegate <NSObject>
 
 @optional
-- (void)xj_tableViewCell:(UITableViewCell *)tableViewCell
-           didSelectItem:(id)item
-             atIndexPath:(NSIndexPath *)indexPath;
 
-- (void)xj_refreshTableViewCell:(UITableViewCell *)tableViewCell;
+- (void)xj_tableViewCell:(UITableViewCell *)tableViewCell
+          didTouchObject:(id)touchedObject;
 
 @end
 

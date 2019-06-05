@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class XJTableViewFooter;
+@protocol XJTableViewFooterDelegate <NSObject>
+
+@end
+
 @interface XJTableViewFooter : UITableViewHeaderFooterView
+
+@property (nonatomic, weak) id <XJTableViewFooterDelegate> delegate;
 
 + (NSString *)identifier;
 

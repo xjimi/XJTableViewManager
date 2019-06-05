@@ -11,10 +11,19 @@
 
 @interface XJTableViewHeaderModel : NSObject
 
+@property (nonatomic, copy) NSString *sectionId;
 @property (nonatomic, copy) NSString *identifier;
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong) id data;
+@property (nonatomic, weak) id delegate;
 
-+ (XJTableViewHeaderModel *)modelWithReuseIdentifier:(NSString *)identifier headerHeight:(CGFloat)height data:(id)data;
++ (XJTableViewHeaderModel *)modelWithReuseIdentifier:(NSString *)identifier
+                                        headerHeight:(CGFloat)height
+                                                data:(id)data;
+
++ (XJTableViewHeaderModel *)modelWithReuseIdentifier:(NSString *)identifier
+                                        headerHeight:(CGFloat)height
+                                                data:(id)data
+                                            delegate:(id)delegate;
 
 @end

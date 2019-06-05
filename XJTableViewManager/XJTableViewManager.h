@@ -17,6 +17,7 @@
 #import "XJTableViewFooter.h"
 #import "XJTableViewCell.h"
 
+
 typedef void (^XJTableViewCellForRowBlock) (XJTableViewCellModel *cellModel, XJTableViewCell *cell, NSIndexPath *indexPath);
 
 typedef void (^XJTableViewDidSelectRowBlock) (XJTableViewCellModel *cellModel, NSIndexPath *indexPath);
@@ -44,8 +45,15 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 - (void)addScrollViewDidScrollBlock:(XJScrollViewDidScrollBlock)scrollViewDidScrollBlock;
 - (void)addScrollViewWillBeginDraggingBlock:(XJScrollViewWillBeginDraggingBlock)scrollViewWillBeginDraggingBlock;
 
-- (void)insertData:(NSArray *)data;
+- (void)addDataModel:(XJTableViewDataModel *)dataModel;
+
+- (void)insertDataModel:(XJTableViewDataModel *)dataModel
+         atSectionIndex:(NSInteger)sectionIndex;
 
 - (XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath;
+
+- (XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath;
+
+- (NSString *)sessionIdAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

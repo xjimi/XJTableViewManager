@@ -8,27 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		5C4119BFC3F60D264214584C /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A96F84A21CC3DB2D0B731C1E /* Pods_Demo.framework */; };
+		903CD7F822A7CC27003FF3FF /* AlbumHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 903CD7F722A7CC27003FF3FF /* AlbumHeader.m */; };
+		903CD7FA22A7CC35003FF3FF /* AlbumHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 903CD7F922A7CC35003FF3FF /* AlbumHeader.xib */; };
 		90520CAD21CB5AC400B905C9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90520CAC21CB5AC400B905C9 /* AppDelegate.m */; };
-		90520CB021CB5AC400B905C9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90520CAF21CB5AC400B905C9 /* ViewController.m */; };
 		90520CB321CB5AC400B905C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90520CB121CB5AC400B905C9 /* Main.storyboard */; };
 		90520CB521CB5AC500B905C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90520CB421CB5AC500B905C9 /* Assets.xcassets */; };
 		90520CB821CB5AC500B905C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90520CB621CB5AC500B905C9 /* LaunchScreen.storyboard */; };
 		90520CBB21CB5AC500B905C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90520CBA21CB5AC500B905C9 /* main.m */; };
+		9061036622A632A700A746E1 /* AlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9061036522A632A700A746E1 /* AlbumsViewController.m */; };
+		9061036A22A7B6AF00A746E1 /* AlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9061036822A7B6AF00A746E1 /* AlbumCell.m */; };
+		9061036B22A7B6AF00A746E1 /* AlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9061036922A7B6AF00A746E1 /* AlbumCell.xib */; };
+		9061036E22A7B6BE00A746E1 /* AlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9061036D22A7B6BE00A746E1 /* AlbumModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		24336AED02A5378BE40FB191 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		53F106DAD69864E142DB619E /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		903CD7F622A7CC27003FF3FF /* AlbumHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlbumHeader.h; sourceTree = "<group>"; };
+		903CD7F722A7CC27003FF3FF /* AlbumHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlbumHeader.m; sourceTree = "<group>"; };
+		903CD7F922A7CC35003FF3FF /* AlbumHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumHeader.xib; sourceTree = "<group>"; };
 		90520CA821CB5AC400B905C9 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90520CAB21CB5AC400B905C9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		90520CAC21CB5AC400B905C9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		90520CAE21CB5AC400B905C9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		90520CAF21CB5AC400B905C9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		90520CB221CB5AC400B905C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90520CB421CB5AC500B905C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90520CB721CB5AC500B905C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90520CB921CB5AC500B905C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90520CBA21CB5AC500B905C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9061036422A632A700A746E1 /* AlbumsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlbumsViewController.h; sourceTree = "<group>"; };
+		9061036522A632A700A746E1 /* AlbumsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlbumsViewController.m; sourceTree = "<group>"; };
+		9061036722A7B6AF00A746E1 /* AlbumCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlbumCell.h; sourceTree = "<group>"; };
+		9061036822A7B6AF00A746E1 /* AlbumCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlbumCell.m; sourceTree = "<group>"; };
+		9061036922A7B6AF00A746E1 /* AlbumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumCell.xib; sourceTree = "<group>"; };
+		9061036C22A7B6BE00A746E1 /* AlbumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlbumModel.h; sourceTree = "<group>"; };
+		9061036D22A7B6BE00A746E1 /* AlbumModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlbumModel.m; sourceTree = "<group>"; };
 		A96F84A21CC3DB2D0B731C1E /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,10 +95,9 @@
 		90520CAA21CB5AC400B905C9 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				9061036022A631E700A746E1 /* Albums */,
 				90520CAB21CB5AC400B905C9 /* AppDelegate.h */,
 				90520CAC21CB5AC400B905C9 /* AppDelegate.m */,
-				90520CAE21CB5AC400B905C9 /* ViewController.h */,
-				90520CAF21CB5AC400B905C9 /* ViewController.m */,
 				90520CB121CB5AC400B905C9 /* Main.storyboard */,
 				90520CB421CB5AC500B905C9 /* Assets.xcassets */,
 				90520CB621CB5AC500B905C9 /* LaunchScreen.storyboard */,
@@ -93,6 +105,39 @@
 				90520CBA21CB5AC500B905C9 /* main.m */,
 			);
 			path = Demo;
+			sourceTree = "<group>";
+		};
+		9061036022A631E700A746E1 /* Albums */ = {
+			isa = PBXGroup;
+			children = (
+				9061036322A6325900A746E1 /* View */,
+				9061036122A6324A00A746E1 /* Model */,
+				9061036422A632A700A746E1 /* AlbumsViewController.h */,
+				9061036522A632A700A746E1 /* AlbumsViewController.m */,
+			);
+			path = Albums;
+			sourceTree = "<group>";
+		};
+		9061036122A6324A00A746E1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9061036C22A7B6BE00A746E1 /* AlbumModel.h */,
+				9061036D22A7B6BE00A746E1 /* AlbumModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9061036322A6325900A746E1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9061036722A7B6AF00A746E1 /* AlbumCell.h */,
+				9061036822A7B6AF00A746E1 /* AlbumCell.m */,
+				9061036922A7B6AF00A746E1 /* AlbumCell.xib */,
+				903CD7F622A7CC27003FF3FF /* AlbumHeader.h */,
+				903CD7F722A7CC27003FF3FF /* AlbumHeader.m */,
+				903CD7F922A7CC35003FF3FF /* AlbumHeader.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,9 +199,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				903CD7FA22A7CC35003FF3FF /* AlbumHeader.xib in Resources */,
 				90520CB821CB5AC500B905C9 /* LaunchScreen.storyboard in Resources */,
 				90520CB521CB5AC500B905C9 /* Assets.xcassets in Resources */,
 				90520CB321CB5AC400B905C9 /* Main.storyboard in Resources */,
+				9061036B22A7B6AF00A746E1 /* AlbumCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +240,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Demo/Pods-Demo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Demo/Pods-Demo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/XJTableViewManager/XJTableViewManager.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
@@ -208,7 +255,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Demo/Pods-Demo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Demo/Pods-Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -218,9 +265,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90520CB021CB5AC400B905C9 /* ViewController.m in Sources */,
+				903CD7F822A7CC27003FF3FF /* AlbumHeader.m in Sources */,
+				9061036622A632A700A746E1 /* AlbumsViewController.m in Sources */,
+				9061036A22A7B6AF00A746E1 /* AlbumCell.m in Sources */,
 				90520CBB21CB5AC500B905C9 /* main.m in Sources */,
 				90520CAD21CB5AC400B905C9 /* AppDelegate.m in Sources */,
+				9061036E22A7B6BE00A746E1 /* AlbumModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

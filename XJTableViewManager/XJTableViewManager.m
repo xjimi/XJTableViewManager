@@ -62,6 +62,7 @@
     self.estimatedSectionHeaderHeight = 0.0f;
     self.estimatedSectionFooterHeight = 0.0f;
     self.backgroundColor = [UIColor clearColor];
+    self.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 
     if (self.style == UITableViewStylePlain) {
         self.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -147,9 +148,9 @@
     }
     [curDataModel.rows addObjectsFromArray:dataModel.rows];
 
-    [self beginUpdates];
-    [self insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self endUpdates];
+    [UIView performWithoutAnimation:^{
+        [self insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)appendDataModel:(XJTableViewDataModel *)dataModel {
@@ -174,9 +175,9 @@
 
     [self.data insertObject:dataModel atIndex:sectionIndex];
 
-    [self beginUpdates];
-    [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-    [self endUpdates];
+    [UIView performWithoutAnimation:^{
+        [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 - (void)registerCellWithData:(NSArray *)data

@@ -31,34 +31,45 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixI-oH-NzO">
-                                        <rect key="frame" x="6" y="33" width="196" height="27"/>
+                                        <rect key="frame" x="6" y="33" width="136" height="27"/>
                                         <state key="normal" title="Append Rows"/>
                                         <connections>
                                             <action selector="action_appendRows" destination="BYZ-38-t0r" eventType="touchUpInside" id="MWx-iN-y61"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXG-Bn-Wgd">
-                                        <rect key="frame" x="212" y="33" width="196" height="27"/>
+                                        <rect key="frame" x="142" y="33" width="136" height="27"/>
                                         <state key="normal" title="Insert Section"/>
                                         <connections>
                                             <action selector="action_insertSection" destination="BYZ-38-t0r" eventType="touchUpInside" id="wy7-xH-hCf"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70c-C7-53O">
+                                        <rect key="frame" x="278" y="33" width="136" height="27"/>
+                                        <state key="normal" title="Add DataModel"/>
+                                        <connections>
+                                            <action selector="action_appendDataModel" destination="BYZ-38-t0r" eventType="touchUpInside" id="EmN-Ys-uu1"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="XXG-Bn-Wgd" firstAttribute="width" secondItem="ixI-oH-NzO" secondAttribute="width" id="37l-pe-aRy"/>
+                                    <constraint firstAttribute="trailing" secondItem="70c-C7-53O" secondAttribute="trailing" id="0Jk-Ml-5US"/>
+                                    <constraint firstItem="XXG-Bn-Wgd" firstAttribute="width" secondItem="ixI-oH-NzO" secondAttribute="width" id="4DQ-3w-4YP"/>
                                     <constraint firstItem="zkb-VX-qJS" firstAttribute="leading" secondItem="T2K-wg-pQO" secondAttribute="leading" constant="3" id="4Pb-0L-qkG"/>
+                                    <constraint firstItem="XXG-Bn-Wgd" firstAttribute="leading" secondItem="ixI-oH-NzO" secondAttribute="trailing" id="4lF-0d-hTA"/>
+                                    <constraint firstItem="70c-C7-53O" firstAttribute="top" secondItem="zkb-VX-qJS" secondAttribute="bottom" id="8qe-JV-CCo"/>
                                     <constraint firstItem="ixI-oH-NzO" firstAttribute="leading" secondItem="T2K-wg-pQO" secondAttribute="leading" constant="6" id="PfS-1g-lrI"/>
-                                    <constraint firstAttribute="trailing" secondItem="XXG-Bn-Wgd" secondAttribute="trailing" constant="6" id="YDO-eN-q5I"/>
+                                    <constraint firstAttribute="bottom" secondItem="70c-C7-53O" secondAttribute="bottom" id="XYk-BQ-3Su"/>
                                     <constraint firstAttribute="height" constant="60" id="aWO-7m-kg7"/>
-                                    <constraint firstItem="XXG-Bn-Wgd" firstAttribute="top" secondItem="zkb-VX-qJS" secondAttribute="bottom" id="co2-xY-WMr"/>
                                     <constraint firstAttribute="bottom" secondItem="ixI-oH-NzO" secondAttribute="bottom" id="gCg-aa-qFn"/>
                                     <constraint firstAttribute="trailing" secondItem="zkb-VX-qJS" secondAttribute="trailing" constant="3" id="hUx-fW-skn"/>
-                                    <constraint firstItem="XXG-Bn-Wgd" firstAttribute="leading" secondItem="ixI-oH-NzO" secondAttribute="trailing" constant="10" id="iVw-8b-ubb"/>
-                                    <constraint firstAttribute="bottom" secondItem="XXG-Bn-Wgd" secondAttribute="bottom" id="mGF-px-wfd"/>
+                                    <constraint firstItem="70c-C7-53O" firstAttribute="leading" secondItem="XXG-Bn-Wgd" secondAttribute="trailing" id="lJB-0Y-sHI"/>
                                     <constraint firstItem="ixI-oH-NzO" firstAttribute="top" secondItem="zkb-VX-qJS" secondAttribute="bottom" id="mKR-qz-uw1"/>
                                     <constraint firstItem="zkb-VX-qJS" firstAttribute="top" secondItem="T2K-wg-pQO" secondAttribute="top" constant="3" id="oy8-Nm-3Oi"/>
+                                    <constraint firstItem="XXG-Bn-Wgd" firstAttribute="top" secondItem="zkb-VX-qJS" secondAttribute="bottom" id="wEN-Rl-5XR"/>
+                                    <constraint firstItem="70c-C7-53O" firstAttribute="width" secondItem="ixI-oH-NzO" secondAttribute="width" id="wva-Ae-xaX"/>
+                                    <constraint firstAttribute="bottom" secondItem="XXG-Bn-Wgd" secondAttribute="bottom" id="ww8-PR-evD"/>
                                 </constraints>
                             </view>
                         </subviews>

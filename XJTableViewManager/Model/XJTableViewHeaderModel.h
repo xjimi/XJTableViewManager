@@ -26,4 +26,6 @@
                                                 data:(id)data
                                             delegate:(id)delegate;
 
++ (XJTableViewHeaderModel *)modelData;
+
 @end

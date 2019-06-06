@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -95,9 +95,9 @@
 		90520CAA21CB5AC400B905C9 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				9061036022A631E700A746E1 /* Albums */,
 				90520CAB21CB5AC400B905C9 /* AppDelegate.h */,
 				90520CAC21CB5AC400B905C9 /* AppDelegate.m */,
+				9061036022A631E700A746E1 /* Albums */,
 				90520CB121CB5AC400B905C9 /* Main.storyboard */,
 				90520CB421CB5AC500B905C9 /* Assets.xcassets */,
 				90520CB621CB5AC500B905C9 /* LaunchScreen.storyboard */,

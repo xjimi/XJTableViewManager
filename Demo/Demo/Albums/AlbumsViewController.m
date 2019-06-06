@@ -28,20 +28,39 @@
 {
     [super viewDidLoad];
 
-    
-
     [self createTableView];
-    self.tableView.backgroundColor = [UIColor lightGrayColor];
-    if (@available(iOS 11.0, *)) {
-        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
-    } else {
-        // Fallback on earlier versions
-    }
     [self reloadData];
+}
+
+#pragma mark - Create XJTableView and dataModel
+
+- (void)createTableView
+{
+    XJTableViewManager *tableView = [XJTableViewManager managerWithStyle:UITableViewStylePlain];
+    tableView.backgroundColor = [UIColor lightGrayColor];
+    [tableView disableGroupHeaderHeight];
+    [tableView disableGroupFooterHeight];
+    [self.view addSubview:tableView];
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.controlsView.mas_bottom);
+        make.left.mas_equalTo(self.view);
+        make.right.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.view);
+    }];
+
+    self.tableView = tableView;
 }
 
 - (void)reloadData {
     self.tableView.data = @[[self createDataModel]].mutableCopy;
+}
+
+- (XJTableViewDataModel *)createDataModel
+{
+    XJTableViewDataModel *dataModel = [XJTableViewDataModel
+                                       modelWithSection:[self createHeaderModel]
+                                       rows:[self createRows]];
+    return dataModel;
 }
 
 - (XJTableViewHeaderModel *)createHeaderModel
@@ -54,41 +73,10 @@
     return headerModel;
 }
 
-- (IBAction)action_insertSection
-{
-    if (!self.inputField.text.length) return;
-    
-    NSInteger sectionIndex = [self.inputField.text integerValue];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        XJTableViewDataModel *dataModel = [self createDataModel];
-        [self.tableView insertDataModel:dataModel atSectionIndex:sectionIndex];
-    });
-}
-
-- (IBAction)action_appendRows
-{
-    if (!self.inputField.text.length) return;
-    
-    NSInteger sectionIndex = [self.inputField.text integerValue];
-    if (sectionIndex >= self.tableView.data.count) return;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        XJTableViewDataModel *dataModel = [self.tableView.data objectAtIndex:sectionIndex];
-        XJTableViewDataModel *newDataModel = [XJTableViewDataModel
-                                              modelWithSection:dataModel.section
-                                              rows:[self createRows]];
-        [self.tableView appendRowsWithDataModel:newDataModel];
-        
-    });
-
-}
-
-
 - (NSMutableArray *)createRows
 {
     NSMutableArray *rows = [NSMutableArray array];
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 3; i++)
     {
         AlbumModel *model = [[AlbumModel alloc] init];
         model.albumName = @"Scorpion (OVO Updated Version) [iTunes][2018]";
@@ -104,64 +92,54 @@
     return rows;
 }
 
-- (XJTableViewDataModel *)createDataModel
-{
-    XJTableViewDataModel *dataModel = [XJTableViewDataModel
-                                       modelWithSection:[self createHeaderModel]
-                                       rows:[self createRows]];
-    return dataModel;
-}
+#pragma mark - Controls Action
 
-- (void)action_createDataModel
+- (IBAction)action_appendRows
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        XJTableViewDataModel *dataModel = [self createDataModel];
-        [self.tableView addDataModel:dataModel];
+    if (!self.inputField.text.length) return;
+
+    NSInteger sectionIndex = [self.inputField.text integerValue];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+        XJTableViewHeaderModel *section = nil;
+        if (sectionIndex < self.tableView.data.count)
+        {
+            XJTableViewDataModel *dataModel = [self.tableView.data objectAtIndex:sectionIndex];
+            section = dataModel.section;
+        }
+
+        XJTableViewDataModel *newDataModel = [XJTableViewDataModel
+                                              modelWithSection:section
+                                              rows:[self createRows]];
+        [self.tableView appendRowsWithDataModel:newDataModel];
+
     });
 }
 
-- (void)createTableView
+- (IBAction)action_appendDataModel
 {
-    XJTableViewManager *tableView = [XJTableViewManager managerWithStyle:UITableViewStyleGrouped];
-    tableView.backgroundColor = [UIColor colorWithWhite:0.1020 alpha:1.0000];
-    [self.view addSubview:tableView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-   // __weak typeof(self)weakSelf = self;
-    [tableView addWillDisplayCellBlock:^(XJTableViewCellModel *cellModel,
-                                          XJTableViewCell *cell,
-                                          NSIndexPath *indexPath)
-     {
-         /*
-         if (cell.alpha == 0.0f) return;
-         cell.alpha = 0.0f;
-         [UIView animateWithDuration:.6
-                               delay:0
-                             options:UIViewAnimationOptionAllowUserInteraction
-                          animations:^
-          {
-              cell.alpha = 1.0f;
-          } completion:nil];*/
+        XJTableViewDataModel *newDataModel = [XJTableViewDataModel
+                                              modelWithSection:nil
+                                              rows:[self createRows]];
+        [self.tableView appendDataModel:newDataModel];
 
-     }];
+    });
+}
 
-    [tableView addDidSelectRowBlock:^(XJTableViewCellModel *cellModel, NSIndexPath *indexPath) {
+- (IBAction)action_insertSection
+{
+    if (!self.inputField.text.length) return;
 
-        //AlbumsViewController *vc = [[AlbumsViewController alloc] init];
-        //[weakSelf.navigationController pushViewController:vc animated:YES];
-        //[self action_createDataModel];
+    NSInteger sectionIndex = [self.inputField.text integerValue];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-    }];
+        XJTableViewDataModel *dataModel = [self createDataModel];
+        [self.tableView insertDataModel:dataModel atSectionIndex:sectionIndex];
 
-    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.controlsView.mas_bottom);
-        make.left.mas_equalTo(self.view);
-        make.right.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(self.view);
-
-
-    }];
-
-    self.tableView = tableView;
+    });
 }
 
 

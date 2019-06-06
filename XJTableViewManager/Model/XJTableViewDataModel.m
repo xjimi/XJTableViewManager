@@ -25,7 +25,7 @@
                                       rows:(NSArray *)rows
 {
     XJTableViewDataModel *dataModel = [[XJTableViewDataModel alloc] init];
-    dataModel.section = headerModel;
+    dataModel.section = headerModel ? : [XJTableViewHeaderModel modelData];
     dataModel.footer  = footerModel;
     dataModel.rows = rows.mutableCopy;
     return dataModel;

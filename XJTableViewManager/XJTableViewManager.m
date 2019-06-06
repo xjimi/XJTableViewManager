@@ -17,6 +17,8 @@
 @property (nonatomic, copy)   XJTableViewDidSelectRowBlock didSelectRowBlock;
 @property (nonatomic, copy)   XJScrollViewDidScrollBlock scrollViewDidScrollBlock;
 @property (nonatomic, copy)   XJScrollViewWillBeginDraggingBlock scrollViewWillBeginDraggingBlock;
+@property (nonatomic, assign) CGFloat defaultGroupHeaderHeight;
+@property (nonatomic, assign) CGFloat defaultGroupFooterHeight;
 
 @end
 
@@ -33,8 +35,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithCoder:coder];
-    if (self)
-    {
+    if (self) {
         [self setup];
     }
     return self;
@@ -43,8 +44,7 @@
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
     self = [super initWithFrame:frame style:style];
-    if (self)
-    {
+    if (self) {
         [self setup];
     }
     return self;
@@ -73,6 +73,20 @@
 
     self.data = [NSMutableArray array];
     self.registeredCells = [NSMutableArray array];
+}
+
+- (void)disableGroupHeaderHeight
+{
+    if (self.style == UITableViewStyleGrouped) {
+        self.defaultGroupHeaderHeight = CGFLOAT_MIN;
+    }
+}
+
+- (void)disableGroupFooterHeight
+{
+    if (self.style == UITableViewStyleGrouped) {
+        self.defaultGroupFooterHeight = CGFLOAT_MIN;
+    }
 }
 
 - (void)addDidSelectRowBlock:(XJTableViewDidSelectRowBlock)rowBlock {
@@ -105,7 +119,6 @@
 
 - (void)appendRowsWithDataModel:(XJTableViewDataModel *)dataModel
 {
-    //將 rows append 到對應的 section 下
     if (!dataModel.section && !dataModel.rows.count) return;
 
     if (!_data)
@@ -139,7 +152,7 @@
     [self endUpdates];
 }
 
-- (void)addDataModel:(XJTableViewDataModel *)dataModel {
+- (void)appendDataModel:(XJTableViewDataModel *)dataModel {
     [self insertDataModel:dataModel atSectionIndex:self.data.count];
 }
 
@@ -154,7 +167,6 @@
     }
 
     [self registerCellWithData:@[dataModel]];
-    NSLog(@"sectionIndex : %ld   ::   %ld", sectionIndex, self.data.count);
 
     if (sectionIndex > self.data.count) {
         sectionIndex = self.data.count;
@@ -163,11 +175,8 @@
     [self.data insertObject:dataModel atIndex:sectionIndex];
 
     [self beginUpdates];
-
     [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-
     [self endUpdates];
-
 }
 
 - (void)registerCellWithData:(NSArray *)data
@@ -213,7 +222,6 @@
             }
         }
 
-
         if (dataModel.rows)
         {
             for (XJTableViewCellModel *cellModel in dataModel.rows)
@@ -250,15 +258,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     XJTableViewDataModel *dataModel = self.data[section];
-    if (self.style == UITableViewStylePlain) return dataModel.section.height;
-    return dataModel.section.height;// ? : 0.0001;
+    return dataModel.section.height ? : self.defaultGroupHeaderHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     XJTableViewDataModel *dataModel = self.data[section];
-    if (self.style == UITableViewStylePlain) return dataModel.footer.height;
-    return dataModel.footer.height;
+    return dataModel.footer.height ? : self.defaultGroupFooterHeight;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

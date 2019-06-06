@@ -38,6 +38,9 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 
 + (instancetype)managerWithStyle:(UITableViewStyle)style;
 
+- (void)disableGroupHeaderHeight;
+- (void)disableGroupFooterHeight;
+
 - (void)addCellForRowBlock:(XJTableViewCellForRowBlock)rowBlock;
 - (void)addWillDisplayCellBlock:(XJTableViewWillDisplayCellBlock)cellBlock;
 - (void)addDidSelectRowBlock:(XJTableViewDidSelectRowBlock)rowBlock;
@@ -45,10 +48,10 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 - (void)addScrollViewDidScrollBlock:(XJScrollViewDidScrollBlock)scrollViewDidScrollBlock;
 - (void)addScrollViewWillBeginDraggingBlock:(XJScrollViewWillBeginDraggingBlock)scrollViewWillBeginDraggingBlock;
 
-- (void)addDataModel:(XJTableViewDataModel *)dataModel;
-
 - (void)insertDataModel:(XJTableViewDataModel *)dataModel
          atSectionIndex:(NSInteger)sectionIndex;
+
+- (void)appendDataModel:(XJTableViewDataModel *)dataModel;
 
 - (void)appendRowsWithDataModel:(XJTableViewDataModel *)dataModel;
 

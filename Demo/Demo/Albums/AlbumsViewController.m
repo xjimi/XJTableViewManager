@@ -121,8 +121,9 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
+        XJTableViewHeaderModel *headerModel = [XJTableViewHeaderModel emptyModel];
         XJTableViewDataModel *newDataModel = [XJTableViewDataModel
-                                              modelWithSection:nil
+                                              modelWithSection:headerModel
                                               rows:[self createRows]];
         [self.tableView appendDataModel:newDataModel];
 

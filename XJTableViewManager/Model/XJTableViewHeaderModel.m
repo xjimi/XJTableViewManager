@@ -40,7 +40,6 @@
 {
     XJTableViewHeaderModel *headerModel = [[XJTableViewHeaderModel alloc] init];
     NSInteger time = [[NSDate date] timeIntervalSince1970];
-    identifier = identifier;
     headerModel.sectionId = [NSString stringWithFormat:@"%@_%ld", identifier, (long)time];
     headerModel.identifier = identifier;
     headerModel.height = height;

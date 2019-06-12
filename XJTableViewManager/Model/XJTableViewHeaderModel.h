@@ -9,23 +9,27 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface XJTableViewHeaderModel : NSObject
 
-@property (nonatomic, copy) NSString *sectionId;
-@property (nonatomic, copy) NSString *identifier;
+@property (nonatomic, copy, readonly) NSString *sectionId;
+@property (nonatomic, copy, readonly) NSString *identifier;
 @property (nonatomic, assign) CGFloat height;
-@property (nonatomic, strong) id data;
-@property (nonatomic, weak) id delegate;
+@property (nonatomic, strong, nullable) id data;
+@property (nonatomic, weak, nullable) id delegate;
 
 + (XJTableViewHeaderModel *)modelWithReuseIdentifier:(NSString *)identifier
                                         headerHeight:(CGFloat)height
-                                                data:(id)data;
+                                                data:(nullable id)data;
 
 + (XJTableViewHeaderModel *)modelWithReuseIdentifier:(NSString *)identifier
                                         headerHeight:(CGFloat)height
-                                                data:(id)data
-                                            delegate:(id)delegate;
+                                                data:(nullable id)data
+                                            delegate:(nullable id)delegate;
 
-+ (XJTableViewHeaderModel *)modelData;
++ (XJTableViewHeaderModel *)emptyModel;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -110,7 +110,7 @@
     self.scrollViewWillBeginDraggingBlock = scrollViewWillBeginDraggingBlock;
 }
 
-- (void)setData:(NSMutableArray *)data
+- (void)setData:(nullable NSMutableArray *)data
 {
     if (!data) data = [NSMutableArray array];
     [self registerCellWithData:data];
@@ -268,7 +268,7 @@
     return dataModel.footer.height ? : self.defaultGroupFooterHeight;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:viewForHeaderInSection:)]) {
         return [self.tableViewDelegate xj_tableView:self viewForHeaderInSection:section];
@@ -283,8 +283,12 @@
     return headerView;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:viewForFooterInSection:)]) {
+        return [self.tableViewDelegate xj_tableView:self viewForFooterInSection:section];
+    }
+
     XJTableViewDataModel *dataModel = self.data[section];
     XJTableViewFooter *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataModel.footer.identifier];
     [footerView reloadData:dataModel.footer.data];
@@ -395,7 +399,7 @@
     return UITableViewCellEditingStyleNone;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:commitEditingStyle:forRowAtIndexPath:)]) {
         return [self.tableViewDelegate xj_tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
@@ -417,7 +421,7 @@
     return NO;
 }
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(nonnull NSIndexPath *)sourceIndexPath toIndexPath:(nonnull NSIndexPath *)destinationIndexPath
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
     if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:moveRowAtIndexPath:toIndexPath:)]) {
         return [self.tableViewDelegate xj_tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
@@ -442,7 +446,7 @@
 
 #pragma mark
 
-- (XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath
+- (nullable XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section >= self.data.count) {
         return nil;
@@ -455,7 +459,7 @@
     return cellModel;
 }
 
-- (XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath
+- (nullable XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section >= self.data.count) {
         return nil;
@@ -464,7 +468,7 @@
     return dataModel.section;
 }
 
-- (NSString *)sessionIdAtIndexPath:(NSIndexPath *)indexPath
+- (nullable NSString *)sessionIdAtIndexPath:(NSIndexPath *)indexPath
 {
     XJTableViewHeaderModel *headerModel = [self headerModelAtIndexPath:indexPath];
     return headerModel.sectionId;

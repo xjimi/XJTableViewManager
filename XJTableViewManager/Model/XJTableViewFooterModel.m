@@ -8,9 +8,17 @@
 
 #import "XJTableViewFooterModel.h"
 
+@interface XJTableViewFooterModel ()
+
+@property (nonatomic, copy, readwrite) NSString *identifier;
+
+@end
+
 @implementation XJTableViewFooterModel
 
-+ (XJTableViewFooterModel *)modelWithReuseIdentifier:(NSString *)identifier headerHeight:(CGFloat)height data:(id)data
++ (XJTableViewFooterModel *)modelWithReuseIdentifier:(NSString *)identifier
+                                        headerHeight:(CGFloat)height
+                                                data:(nullable id)data
 {
     XJTableViewFooterModel *headerModel = [[XJTableViewFooterModel alloc] init];
     headerModel.identifier = identifier;

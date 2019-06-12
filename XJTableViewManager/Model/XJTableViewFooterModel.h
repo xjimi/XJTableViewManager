@@ -8,12 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface XJTableViewFooterModel : NSObject
 
-@property (nonatomic, copy) NSString *identifier;
+@property (nonatomic, copy, readonly) NSString *identifier;
 @property (nonatomic, assign) CGFloat height;
-@property (nonatomic, strong) id data;
+@property (nonatomic, strong, nullable) id data;
 
-+ (XJTableViewFooterModel *)modelWithReuseIdentifier:(NSString *)identifier headerHeight:(CGFloat)height data:(id)data;
-
++ (XJTableViewFooterModel *)modelWithReuseIdentifier:(NSString *)identifier
+                                        headerHeight:(CGFloat)height
+                                                data:(nullable id)data;
 @end
+
+NS_ASSUME_NONNULL_END

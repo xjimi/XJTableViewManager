@@ -6,8 +6,8 @@
 //  Copyright © 2015年 XJIMI. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "XJTableViewDelegate.h"
 #import "XJTableViewDataModel.h"
 #import "XJTableViewHeaderModel.h"
@@ -17,6 +17,7 @@
 #import "XJTableViewFooter.h"
 #import "XJTableViewCell.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^XJTableViewCellForRowBlock) (XJTableViewCellModel *cellModel, XJTableViewCell *cell, NSIndexPath *indexPath);
 
@@ -30,9 +31,9 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 
 @interface XJTableViewManager : UITableView
 
-@property (nonatomic, weak) id < XJTableViewDelegate > tableViewDelegate;
+@property (nonatomic, weak, nullable) id < XJTableViewDelegate > tableViewDelegate;
 
-@property (nonatomic, strong) NSMutableArray *data;
+@property (nonatomic, strong, nullable) NSMutableArray *data;
 
 + (instancetype)manager;
 
@@ -48,17 +49,15 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 - (void)addScrollViewDidScrollBlock:(XJScrollViewDidScrollBlock)scrollViewDidScrollBlock;
 - (void)addScrollViewWillBeginDraggingBlock:(XJScrollViewWillBeginDraggingBlock)scrollViewWillBeginDraggingBlock;
 
+- (void)appendDataModel:(XJTableViewDataModel *)dataModel;
+- (void)appendRowsWithDataModel:(XJTableViewDataModel *)dataModel;
 - (void)insertDataModel:(XJTableViewDataModel *)dataModel
          atSectionIndex:(NSInteger)sectionIndex;
 
-- (void)appendDataModel:(XJTableViewDataModel *)dataModel;
-
-- (void)appendRowsWithDataModel:(XJTableViewDataModel *)dataModel;
-
-- (XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath;
-
-- (XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath;
-
-- (NSString *)sessionIdAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable NSString *)sessionIdAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
+
+NS_ASSUME_NONNULL_END

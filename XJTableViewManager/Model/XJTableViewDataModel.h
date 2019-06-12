@@ -12,18 +12,24 @@
 #import "XJTableViewFooterModel.h"
 #import "XJTableViewCellModel.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface XJTableViewDataModel : NSObject
 
-@property (nonatomic, strong) XJTableViewHeaderModel *section;
-@property (nonatomic, strong) XJTableViewFooterModel *footer;
+@property (nonatomic, strong, nullable) XJTableViewHeaderModel *section;
+@property (nonatomic, strong, nullable) XJTableViewFooterModel *footer;
 @property (nonatomic, strong) NSMutableArray *rows;
 
-+ (XJTableViewDataModel *)modelWithSection:(XJTableViewHeaderModel *)headerModel rows:(NSArray *)rows;
++ (XJTableViewDataModel *)modelWithSection:(nullable XJTableViewHeaderModel *)headerModel
+                                      rows:(NSArray *)rows;
 
-+ (XJTableViewDataModel *)modelWithFooter:(XJTableViewFooterModel *)footerModel rows:(NSArray *)rows;
++ (XJTableViewDataModel *)modelWithFooter:(nullable XJTableViewFooterModel *)footerModel
+                                     rows:(NSArray *)rows;
 
-+ (XJTableViewDataModel *)modelWithSection:(XJTableViewHeaderModel *)headerModel
-                                    footer:(XJTableViewFooterModel *)footerModel
++ (XJTableViewDataModel *)modelWithSection:(nullable XJTableViewHeaderModel *)headerModel
+                                    footer:(nullable XJTableViewFooterModel *)footerModel
                                       rows:(NSArray *)rows;
 
 @end
+
+NS_ASSUME_NONNULL_END

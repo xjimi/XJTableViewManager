@@ -8,24 +8,31 @@
 
 #import "XJTableViewHeaderModel.h"
 
+@interface XJTableViewHeaderModel ()
+
+@property (nonatomic, copy, readwrite) NSString *sectionId;
+
+@property (nonatomic, copy, readwrite) NSString *identifier;
+
+@end
+
 @implementation XJTableViewHeaderModel
 
-+ (XJTableViewHeaderModel *)modelData
-{
++ (XJTableViewHeaderModel *)emptyModel {
     return [XJTableViewHeaderModel modelWithReuseIdentifier:nil headerHeight:0 data:nil delegate:nil];
 }
 
 + (XJTableViewHeaderModel *)modelWithReuseIdentifier:(NSString *)identifier
                                         headerHeight:(CGFloat)height
-                                                data:(id)data
+                                                data:(nullable id)data
 {
     return [XJTableViewHeaderModel modelWithReuseIdentifier:identifier headerHeight:height data:data delegate:nil];
 }
 
 + (XJTableViewHeaderModel *)modelWithReuseIdentifier:(NSString *)identifier
                                         headerHeight:(CGFloat)height
-                                                data:(id)data
-                                            delegate:(id)delegate;
+                                                data:(nullable id)data
+                                            delegate:(nullable id)delegate;
 {
     XJTableViewHeaderModel *headerModel = [[XJTableViewHeaderModel alloc] init];
     NSInteger time = [[NSDate date] timeIntervalSince1970];

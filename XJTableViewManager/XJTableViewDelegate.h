@@ -5,35 +5,46 @@
 //  Created by XJIMI on 2018/12/20.
 //
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol XJTableViewDelegate < NSObject >
 
 @optional
 
-- (NSInteger)xj_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (NSInteger)xj_tableView:(UITableView *)tableView
+    numberOfRowsInSection:(NSInteger)section;
 
-- (CGFloat)xj_tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (CGFloat)xj_tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 
-- (UITableViewCell *)xj_tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
+- (UITableViewCell *)xj_tableView:(UITableView *)tableView
+            cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
-- (void)xj_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
+- (void)xj_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
-- (BOOL)xj_tableView:(UITableView *)tableView canEditRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
+- (BOOL)xj_tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
 
-- (UIView *)xj_tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+- (nullable UIView *)xj_tableView:(UITableView *)tableView
+           viewForHeaderInSection:(NSInteger)section;
+
+- (nullable UIView *)xj_tableView:(UITableView *)tableView
+           viewForFooterInSection:(NSInteger)section;
 
 - (UITableViewCellEditingStyle)xj_tableView:(UITableView *)tableView
               editingStyleForRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
 
 - (void)xj_tableView:(UITableView *)tableView
   commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-   forRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
+   forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)xj_tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(nullable NSIndexPath *)indexPath;
 
-- (BOOL)xj_tableView:(UITableView *)tableView canMoveRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
+- (BOOL)xj_tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)xj_tableView:(UITableView *)tableView
-  moveRowAtIndexPath:(nonnull NSIndexPath *)sourceIndexPath
-         toIndexPath:(nonnull NSIndexPath *)destinationIndexPath;
+  moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+         toIndexPath:(NSIndexPath *)destinationIndexPath;
 
 @end
+
+NS_ASSUME_NONNULL_END

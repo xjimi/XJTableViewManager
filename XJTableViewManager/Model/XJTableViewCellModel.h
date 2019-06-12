@@ -9,22 +9,25 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface XJTableViewCellModel : NSObject
 
-@property (nonatomic, copy)   NSString *identifier;
+@property (nonatomic, copy, readonly) NSString *identifier;
 @property (nonatomic, assign) CGFloat height;
-@property (nonatomic, strong) id data;
-@property (nonatomic, weak) id delegate;
-@property (nonatomic, assign) Class registerClass;
-@property (nonatomic, copy)   NSString *registerNibName;
+@property (nonatomic, strong, nullable) id data;
+@property (nonatomic, weak, nullable) id delegate;
+@property (nonatomic, assign, nullable) Class registerClass;
+@property (nonatomic, copy, nullable) NSString *registerNibName;
 
 + (XJTableViewCellModel *)modelWithReuseIdentifier:(NSString *)identifier
                                         cellHeight:(CGFloat)height
-                                              data:(id)data;
+                                              data:(nullable id)data;
 
 + (XJTableViewCellModel *)modelWithReuseIdentifier:(NSString *)identifier
                                         cellHeight:(CGFloat)height
-                                              data:(id)data
-                                          delegate:(id)delegate;
-
+                                              data:(nullable id)data
+                                          delegate:(nullable id)delegate;
 @end
+
+NS_ASSUME_NONNULL_END

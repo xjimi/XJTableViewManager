@@ -18,8 +18,12 @@
 
 @implementation XJTableViewHeaderModel
 
-+ (XJTableViewHeaderModel *)emptyModel {
-    return [XJTableViewHeaderModel modelWithReuseIdentifier:nil headerHeight:0 data:nil delegate:nil];
++ (XJTableViewHeaderModel *)emptyModel
+{
+    return [XJTableViewHeaderModel modelWithReuseIdentifier:@"EmptyHeader"
+                                               headerHeight:0
+                                                       data:nil
+                                                   delegate:nil];
 }
 
 + (XJTableViewHeaderModel *)modelWithReuseIdentifier:(NSString *)identifier
@@ -36,7 +40,7 @@
 {
     XJTableViewHeaderModel *headerModel = [[XJTableViewHeaderModel alloc] init];
     NSInteger time = [[NSDate date] timeIntervalSince1970];
-    identifier = identifier ? : @"EmptyHeader";
+    identifier = identifier;
     headerModel.sectionId = [NSString stringWithFormat:@"%@_%ld", identifier, (long)time];
     headerModel.identifier = identifier;
     headerModel.height = height;

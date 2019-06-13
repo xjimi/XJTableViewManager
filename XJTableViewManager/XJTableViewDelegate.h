@@ -31,7 +31,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath;
            viewForFooterInSection:(NSInteger)section;
 
 - (UITableViewCellEditingStyle)xj_tableView:(UITableView *)tableView
-              editingStyleForRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
+              editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)xj_tableView:(UITableView *)tableView
   commitEditingStyle:(UITableViewCellEditingStyle)editingStyle

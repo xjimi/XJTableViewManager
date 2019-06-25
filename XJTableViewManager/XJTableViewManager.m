@@ -190,14 +190,16 @@
             if (![self.registeredCells containsObject:headerReusableId])
             {
                 [self.registeredCells addObject:headerReusableId];
-                if([[NSBundle mainBundle] pathForResource:headerReusableId ofType:@"nib"])
+
+                Class class = NSClassFromString(headerReusableId);
+                NSBundle *bundle = [NSBundle bundleForClass:class];
+                if([bundle pathForResource:headerReusableId ofType:@"nib"])
                 {
-                    UINib *nib = [UINib nibWithNibName:headerReusableId bundle:nil];
+                    UINib *nib = [UINib nibWithNibName:headerReusableId bundle:bundle];
                     [self registerNib:nib forHeaderFooterViewReuseIdentifier:headerReusableId];
                 }
                 else
                 {
-                    Class class = NSClassFromString(headerReusableId);
                     [self registerClass:class forHeaderFooterViewReuseIdentifier:headerReusableId];
                 }
             }
@@ -210,14 +212,16 @@
             if (![self.registeredCells containsObject:footerReusableId])
             {
                 [self.registeredCells addObject:footerReusableId];
-                if([[NSBundle mainBundle] pathForResource:footerReusableId ofType:@"nib"])
+
+                Class class = NSClassFromString(footerReusableId);
+                NSBundle *bundle = [NSBundle bundleForClass:class];
+                if([bundle pathForResource:footerReusableId ofType:@"nib"])
                 {
-                    UINib *nib = [UINib nibWithNibName:footerReusableId bundle:nil];
+                    UINib *nib = [UINib nibWithNibName:footerReusableId bundle:bundle];
                     [self registerNib:nib forHeaderFooterViewReuseIdentifier:footerReusableId];
                 }
                 else
                 {
-                    Class class = NSClassFromString(footerReusableId);
                     [self registerClass:class forHeaderFooterViewReuseIdentifier:footerReusableId];
                 }
             }
@@ -234,15 +238,17 @@
                     [self.registeredCells addObject:cellId];
 
                     NSString *nibName = cellModel.registerNibName ? : cellId;
-                    if([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"])
+                    Class class = NSClassFromString(nibName);
+                    NSBundle *bundle = [NSBundle bundleForClass:class];
+                    if([bundle pathForResource:nibName ofType:@"nib"])
                     {
-                        UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
+                        UINib *nib = [UINib nibWithNibName:nibName bundle:bundle];
                         [self registerNib:nib forCellReuseIdentifier:cellId];
                     }
                     else
                     {
-                        Class class = cellModel.registerClass ? : NSClassFromString(cellId);
-                        [self registerClass:class forCellReuseIdentifier:cellId];
+                        Class registerClass = cellModel.registerClass ? : NSClassFromString(cellId);
+                        [self registerClass:registerClass forCellReuseIdentifier:cellId];
                     }
                 }
             }

@@ -33,12 +33,11 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 
 @property (nonatomic, weak, nullable) id < XJTableViewDelegate > tableViewDelegate;
 
-@property (nonatomic, strong, nullable) NSMutableArray *data;
-
 + (instancetype)manager;
 
 + (instancetype)managerWithStyle:(UITableViewStyle)style;
 
+/** 將 UITableViewStyleGrouped 的上下間距設為 0 **/
 - (void)disableGroupHeaderHeight;
 - (void)disableGroupFooterHeight;
 
@@ -49,11 +48,20 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 - (void)addScrollViewDidScrollBlock:(XJScrollViewDidScrollBlock)scrollViewDidScrollBlock;
 - (void)addScrollViewWillBeginDraggingBlock:(XJScrollViewWillBeginDraggingBlock)scrollViewWillBeginDraggingBlock;
 
-- (void)appendDataModel:(XJTableViewDataModel *)dataModel;
-- (void)appendRowsWithDataModel:(XJTableViewDataModel *)dataModel;
-- (void)insertDataModel:(XJTableViewDataModel *)dataModel
-         atSectionIndex:(NSInteger)sectionIndex;
+/** Set DataModel **/
+- (void)resetDataModel:(XJTableViewDataModel *)dataModel;
+- (void)resetDataModels:(NSArray <XJTableViewDataModel *> *)dataModels;
 
+- (void)appendDataModel:(XJTableViewDataModel *)dataModel;
+- (void)appendDataModels:(NSArray *)dataModels;
+- (void)appendRowsWithDataModel:(XJTableViewDataModel *)dataModel;
+
+- (void)insertDataModel:(XJTableViewDataModel *)dataModel atSectionIndex:(NSInteger)sectionIndex;
+- (void)insertDataModels:(NSArray *)dataModel atSectionIndex:(NSInteger)sectionIndex;
+
+/** Get DataModel **/
+- (NSArray *)allDataModels;
+- (nullable XJTableViewDataModel *)dataModelAtSectionIndex:(NSInteger)sectionIndex;
 - (nullable XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath;
 - (nullable XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath;
 - (nullable NSString *)sessionIdAtIndexPath:(NSIndexPath *)indexPath;

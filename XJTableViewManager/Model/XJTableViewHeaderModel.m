@@ -39,13 +39,17 @@
                                             delegate:(nullable id)delegate;
 {
     XJTableViewHeaderModel *headerModel = [[XJTableViewHeaderModel alloc] init];
-    NSInteger time = [[NSDate date] timeIntervalSince1970];
-    headerModel.sectionId = [NSString stringWithFormat:@"%@_%ld", identifier, (long)time];
+    NSString *key = [XJTableViewHeaderModel referenceKeyForObject:headerModel];
+    headerModel.sectionId = [NSString stringWithFormat:@"%@_%@", identifier, key];
     headerModel.identifier = identifier;
     headerModel.height = height;
     headerModel.data = data;
     headerModel.delegate = delegate;
     return headerModel;
+}
+
++ (NSString *)referenceKeyForObject:(id)object {
+    return [NSString stringWithFormat:@"%p", object];
 }
 
 @end

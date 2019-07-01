@@ -52,20 +52,20 @@
 }
 
 - (void)reloadData {
-    self.tableView.data = @[[self createDataModel]].mutableCopy;
+    [self.tableView resetDataModel:[self createDataModelWithIndex:0]];
 }
 
-- (XJTableViewDataModel *)createDataModel
+- (XJTableViewDataModel *)createDataModelWithIndex:(NSInteger)index
 {
     XJTableViewDataModel *dataModel = [XJTableViewDataModel
-                                       modelWithSection:[self createHeaderModel]
+                                       modelWithSection:[self createHeaderModelWithIndex:index]
                                        rows:[self createRows]];
     return dataModel;
 }
 
-- (XJTableViewHeaderModel *)createHeaderModel
+- (XJTableViewHeaderModel *)createHeaderModelWithIndex:(NSInteger)index
 {
-    NSString *setion = [NSString stringWithFormat:@"New Album %ld", (long)self.tableView.data.count];
+    NSString *setion = [NSString stringWithFormat:@"New Album %ld", (long)self.tableView.allDataModels.count + index];
     XJTableViewHeaderModel *headerModel = [XJTableViewHeaderModel
                                            modelWithReuseIdentifier:[AlbumHeader identifier]
                                            headerHeight:50.0f
@@ -78,9 +78,10 @@
     NSMutableArray *rows = [NSMutableArray array];
     for (int i = 0; i < 3; i++)
     {
+        NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
         AlbumModel *model = [[AlbumModel alloc] init];
         model.albumName = @"Scorpion (OVO Updated Version) [iTunes][2018]";
-        model.artistName = @"Drake";
+        model.artistName = [NSString stringWithFormat:@"%f - Drake", time];
         model.imageName = @"drake";
         
         XJTableViewCellModel *cellModel = [XJTableViewCellModel
@@ -103,9 +104,9 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
         XJTableViewHeaderModel *section = nil;
-        if (sectionIndex < self.tableView.data.count)
+        if (sectionIndex < self.tableView.allDataModels.count)
         {
-            XJTableViewDataModel *dataModel = [self.tableView.data objectAtIndex:sectionIndex];
+            XJTableViewDataModel *dataModel = [self.tableView.allDataModels objectAtIndex:sectionIndex];
             section = dataModel.section;
         }
 
@@ -121,11 +122,18 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-        XJTableViewHeaderModel *headerModel = [XJTableViewHeaderModel emptyModel];
-        XJTableViewDataModel *newDataModel = [XJTableViewDataModel
-                                              modelWithSection:headerModel
-                                              rows:[self createRows]];
-        [self.tableView appendDataModel:newDataModel];
+        NSMutableArray *dataModels = [NSMutableArray array];
+        for (NSInteger i = 0 ; i < 3; i ++) {
+
+            /*XJTableViewHeaderModel *headerModel = [XJTableViewHeaderModel emptyModel];
+            XJTableViewDataModel *newDataModel = [XJTableViewDataModel
+                                                  modelWithSection:headerModel
+                                                  rows:[self createRows]];*/
+
+            XJTableViewDataModel *dataModel = [self createDataModelWithIndex:i];
+            [dataModels addObject:dataModel];
+        }
+        [self.tableView appendDataModels:dataModels];
 
     });
 }
@@ -137,8 +145,13 @@
     NSInteger sectionIndex = [self.inputField.text integerValue];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-        XJTableViewDataModel *dataModel = [self createDataModel];
-        [self.tableView insertDataModel:dataModel atSectionIndex:sectionIndex];
+        NSMutableArray *dataModels = [NSMutableArray array];
+        for (NSInteger i = 0 ; i < 3; i ++) {
+            XJTableViewDataModel *dataModel = [self createDataModelWithIndex:i];
+            [dataModels addObject:dataModel];
+        }
+
+        [self.tableView insertDataModels:dataModels atSectionIndex:sectionIndex];
 
     });
 }

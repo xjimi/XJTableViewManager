@@ -17,6 +17,8 @@
 - (void)xj_tableViewCell:(UITableViewCell *)tableViewCell
           didTouchObject:(id)touchedObject;
 
+- (void)xj_refreshTableViewCell:(UITableViewCell *)tableViewCell;
+
 @end
 
 @interface XJTableViewCell : UITableViewCell

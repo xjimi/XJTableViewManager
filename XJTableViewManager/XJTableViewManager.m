@@ -301,7 +301,8 @@
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:viewForHeaderInSection:)]) {
-        return [self.tableViewDelegate xj_tableView:self viewForHeaderInSection:section];
+        UIView *view = [self.tableViewDelegate xj_tableView:self viewForHeaderInSection:section];
+        if (view) return view;
     }
 
     XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
@@ -316,7 +317,8 @@
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:viewForFooterInSection:)]) {
-        return [self.tableViewDelegate xj_tableView:self viewForFooterInSection:section];
+        UIView *view = [self.tableViewDelegate xj_tableView:self viewForFooterInSection:section];
+        if (view) return view;
     }
 
     XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
@@ -349,19 +351,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
-    if (![self.tableViewDelegate respondsToSelector:@selector(xj_tableView:numberOfRowsInSection:)]) {
-        return dataModel.rows.count;
-    } else {
-        return [self.tableViewDelegate xj_tableView:tableView numberOfRowsInSection:section];
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:numberOfRowsInSection:)]) {
+        NSInteger rowsCount = [self.tableViewDelegate xj_tableView:self numberOfRowsInSection:section];
+        if (rowsCount) return rowsCount;
     }
+
+    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
+    return dataModel.rows.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:heightForRowAtIndexPath:)]) {
         CGFloat height = [self.tableViewDelegate xj_tableView:tableView heightForRowAtIndexPath:indexPath];
-        if (height != 0) return height;
+        if (height) return height;
     }
 
     XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
@@ -371,7 +374,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:cellForRowAtIndexPath:)]) {
-        return [self.tableViewDelegate xj_tableView:tableView cellForRowAtIndexPath:indexPath];
+        UITableViewCell *cell = [self.tableViewDelegate xj_tableView:tableView cellForRowAtIndexPath:indexPath];
+        if (cell) return cell;
     }
 
     XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];

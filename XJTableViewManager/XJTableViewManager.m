@@ -77,54 +77,203 @@
     self.registeredCells = [NSMutableArray array];
 }
 
-- (void)disableGroupHeaderHeight
+#pragma mark - TableView dataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.dataModels.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.style == UITableViewStyleGrouped) {
-        self.defaultGroupHeaderHeight = CGFLOAT_MIN;
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:numberOfRowsInSection:)]) {
+        NSInteger rowsCount = [self.tableViewDelegate xj_tableView:self numberOfRowsInSection:section];
+        if (rowsCount) return rowsCount;
+    }
+
+    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
+    return dataModel.rows.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
+    if ([dataModel.section.data isKindOfClass:[NSString class]] && !dataModel.section.identifier) {
+        return dataModel.section.data;
+    }
+    return nil;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
+    if ([dataModel.footer.data isKindOfClass:[NSString class]] && !dataModel.footer.identifier) {
+        return dataModel.footer.data;
+    }
+    return nil;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:cellForRowAtIndexPath:)]) {
+        UITableViewCell *cell = [self.tableViewDelegate xj_tableView:tableView cellForRowAtIndexPath:indexPath];
+        if (cell) return cell;
+    }
+
+    XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
+    XJTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellModel.identifier forIndexPath:indexPath];
+    [cell layoutIfNeeded];
+    cell.delegate = cellModel.delegate;
+    cell.indexPath = indexPath;
+    [cell reloadData:cellModel.data];
+    if (self.cellForRowBlock) self.cellForRowBlock(cellModel, cell, indexPath);
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:commitEditingStyle:forRowAtIndexPath:)]) {
+        return [self.tableViewDelegate xj_tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
     }
 }
 
-- (void)disableGroupFooterHeight
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.style == UITableViewStyleGrouped) {
-        self.defaultGroupFooterHeight = CGFLOAT_MIN;
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:canEditRowAtIndexPath:)]) {
+        return [self.tableViewDelegate xj_tableView:tableView canEditRowAtIndexPath:indexPath];
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:moveRowAtIndexPath:toIndexPath:)]) {
+        return [self.tableViewDelegate xj_tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
     }
 }
 
-- (void)addDidSelectRowBlock:(XJTableViewDidSelectRowBlock)rowBlock {
-    self.didSelectRowBlock = rowBlock;
+#pragma mark - TableView delegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.willDisplayCellBlock)
+    {
+        XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
+        self.willDisplayCellBlock(cellModel, (XJTableViewCell *)cell, indexPath);
+    }
 }
 
-- (void)addCellForRowBlock:(XJTableViewCellForRowBlock)rowBlock {
-    self.cellForRowBlock = rowBlock;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
+    return dataModel.section.height ? : self.defaultGroupHeaderHeight;
 }
 
-- (void)addWillDisplayCellBlock:(XJTableViewWillDisplayCellBlock)cellBlock {
-    self.willDisplayCellBlock = cellBlock;
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
+    return dataModel.footer.height ? : self.defaultGroupFooterHeight;
 }
 
-- (void)addScrollViewDidScrollBlock:(XJScrollViewDidScrollBlock)scrollViewDidScrollBlock {
-    self.scrollViewDidScrollBlock = scrollViewDidScrollBlock;
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:viewForHeaderInSection:)]) {
+        UIView *view = [self.tableViewDelegate xj_tableView:self viewForHeaderInSection:section];
+        if (view) return view;
+    }
+
+    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
+    XJTableViewHeader *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataModel.section.identifier];
+    headerView.delegate = dataModel.section.delegate;
+    [headerView setNeedsLayout];
+    [headerView layoutIfNeeded];
+    [headerView reloadData:dataModel.section.data];
+    return headerView;
 }
 
-- (void)addScrollViewWillBeginDraggingBlock:(XJScrollViewWillBeginDraggingBlock)scrollViewWillBeginDraggingBlock {
-    self.scrollViewWillBeginDraggingBlock = scrollViewWillBeginDraggingBlock;
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:viewForFooterInSection:)]) {
+        UIView *view = [self.tableViewDelegate xj_tableView:self viewForFooterInSection:section];
+        if (view) return view;
+    }
+
+    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
+    XJTableViewFooter *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataModel.footer.identifier];
+    [footerView reloadData:dataModel.footer.data];
+    return footerView;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:heightForRowAtIndexPath:)]) {
+        CGFloat height = [self.tableViewDelegate xj_tableView:tableView heightForRowAtIndexPath:indexPath];
+        if (height) return height;
+    }
+
+    XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
+    return cellModel.height;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self deselectRowAtIndexPath:indexPath animated:YES];
+
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:didSelectRowAtIndexPath:)]) {
+        [self.tableViewDelegate xj_tableView:tableView didSelectRowAtIndexPath:indexPath];
+        return;
+    }
+
+    if (self.didSelectRowBlock)
+    {
+        XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
+        self.didSelectRowBlock(cellModel, indexPath);
+    }
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView
+           editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:editingStyleForRowAtIndexPath:)]) {
+        return [self.tableViewDelegate xj_tableView:tableView editingStyleForRowAtIndexPath:indexPath];
+    }
+
+    return UITableViewCellEditingStyleNone;
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(nullable NSIndexPath *)indexPath
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:didEndEditingRowAtIndexPath:)]) {
+        return [self.tableViewDelegate xj_tableView:tableView didEndEditingRowAtIndexPath:indexPath];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:canMoveRowAtIndexPath:)]) {
+        return [self.tableViewDelegate xj_tableView:tableView canMoveRowAtIndexPath:indexPath];
+    }
+    return NO;
+}
+
+#pragma mark - Set dataModel
 
 - (void)setDataModels:(NSMutableArray <XJTableViewDataModel *> *)dataModels
 {
-    if (!dataModels) dataModels = [NSMutableArray array];
     [self registerCellWithData:dataModels];
-    _dataModels = dataModels.mutableCopy;
+    _dataModels = dataModels;
     [self reloadData];
 }
 
-- (void)resetDataModel:(XJTableViewDataModel *)dataModel {
-    self.dataModels = @[dataModel];
+- (void)refreshDataModel:(XJTableViewDataModel *)dataModel
+{
+    if (!dataModel) return;
+    [self refreshDataModels:@[dataModel]];
 }
 
-- (void)resetDataModels:(NSArray <XJTableViewDataModel *> *)dataModels {
-    self.dataModels = dataModels;
+- (void)refreshDataModels:(NSArray <XJTableViewDataModel *> *)dataModels
+{
+    if (!dataModels || !dataModels.count) return;
+    self.dataModels = dataModels.mutableCopy;
 }
 
 - (void)appendDataModel:(XJTableViewDataModel *)dataModel {
@@ -142,9 +291,9 @@
 {
     if (!dataModel.section && !dataModel.rows.count) return;
 
-    if (!_dataModels)
+    if (!self.dataModels)
     {
-        self.dataModels = @[dataModel].mutableCopy;
+        [self refreshDataModel:dataModel];
         return;
     }
 
@@ -173,22 +322,13 @@
     }];
 }
 
-- (void)insertDataModels:(NSArray *)dataModels
-         atSectionIndex:(NSInteger)sectionIndex
-{
-    NSArray *reverseDataModels = [[dataModels reverseObjectEnumerator] allObjects];
-    for (XJTableViewDataModel *dataModel in reverseDataModels) {
-        [self insertDataModel:dataModel atSectionIndex:sectionIndex];
-    }
-}
-
 - (void)insertDataModel:(XJTableViewDataModel *)dataModel
          atSectionIndex:(NSInteger)sectionIndex
 {
     if (!dataModel.section && !dataModel.rows.count) return;
 
     if (!self.dataModels) {
-        self.dataModels = @[dataModel].mutableCopy;
+        [self refreshDataModel:dataModel];
         return;
     }
 
@@ -204,6 +344,54 @@
         [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
+
+- (void)insertDataModels:(NSArray <XJTableViewDataModel *> *)dataModels
+          atSectionIndex:(NSInteger)sectionIndex
+{
+    NSArray *reverseDataModels = [[dataModels reverseObjectEnumerator] allObjects];
+    for (XJTableViewDataModel *dataModel in reverseDataModels) {
+        [self insertDataModel:dataModel atSectionIndex:sectionIndex];
+    }
+}
+
+#pragma mark - Get dataModel
+
+- (NSArray *)allDataModels {
+    return self.dataModels;
+}
+
+- (nullable XJTableViewDataModel *)dataModelAtSectionIndex:(NSInteger)sectionIndex
+{
+    if (sectionIndex >= self.dataModels.count) {
+        return nil;
+    }
+    XJTableViewDataModel *dataModel = [self.dataModels objectAtIndex:sectionIndex];
+    return dataModel;
+}
+
+- (nullable XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath
+{
+    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:indexPath.section];
+    if (indexPath.row >= dataModel.rows.count) {
+        return nil;
+    }
+    XJTableViewCellModel *cellModel = [dataModel.rows objectAtIndex:indexPath.row];
+    return cellModel;
+}
+
+- (nullable XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath
+{
+    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:indexPath.section];
+    return dataModel.section;
+}
+
+- (nullable NSString *)sessionIdAtIndexPath:(NSIndexPath *)indexPath
+{
+    XJTableViewHeaderModel *headerModel = [self headerModelAtIndexPath:indexPath];
+    return headerModel.sectionId;
+}
+
+#pragma mark - Register cell
 
 - (void)registerCellWithData:(NSArray *)data
 {
@@ -280,184 +468,45 @@
     }
 }
 
-#pragma mark - TableView data source
+#pragma mark - Public function
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.dataModels.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (void)disableGroupHeaderHeight
 {
-    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
-    return dataModel.section.height ? : self.defaultGroupHeaderHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
-    return dataModel.footer.height ? : self.defaultGroupFooterHeight;
-}
-
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:viewForHeaderInSection:)]) {
-        UIView *view = [self.tableViewDelegate xj_tableView:self viewForHeaderInSection:section];
-        if (view) return view;
-    }
-
-    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
-    XJTableViewHeader *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataModel.section.identifier];
-    headerView.delegate = dataModel.section.delegate;
-    [headerView setNeedsLayout];
-    [headerView layoutIfNeeded];
-    [headerView reloadData:dataModel.section.data];
-    return headerView;
-}
-
-- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:viewForFooterInSection:)]) {
-        UIView *view = [self.tableViewDelegate xj_tableView:self viewForFooterInSection:section];
-        if (view) return view;
-    }
-
-    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
-    XJTableViewFooter *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataModel.footer.identifier];
-    [footerView reloadData:dataModel.footer.data];
-    return footerView;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
-    if ([dataModel.section.data isKindOfClass:[NSString class]] &&
-        !dataModel.section.identifier)
-    {
-        return dataModel.section.data;
-    }
-    return nil;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
-{
-    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
-    if ([dataModel.footer.data isKindOfClass:[NSString class]] &&
-        !dataModel.footer.identifier)
-    {
-        return dataModel.footer.data;
-    }
-    return nil;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:numberOfRowsInSection:)]) {
-        NSInteger rowsCount = [self.tableViewDelegate xj_tableView:self numberOfRowsInSection:section];
-        if (rowsCount) return rowsCount;
-    }
-
-    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:section];
-    return dataModel.rows.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:heightForRowAtIndexPath:)]) {
-        CGFloat height = [self.tableViewDelegate xj_tableView:tableView heightForRowAtIndexPath:indexPath];
-        if (height) return height;
-    }
-
-    XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
-    return cellModel.height;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:cellForRowAtIndexPath:)]) {
-        UITableViewCell *cell = [self.tableViewDelegate xj_tableView:tableView cellForRowAtIndexPath:indexPath];
-        if (cell) return cell;
-    }
-
-    XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
-    XJTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellModel.identifier forIndexPath:indexPath];
-    [cell layoutIfNeeded];
-    cell.delegate = cellModel.delegate;
-    cell.indexPath = indexPath;
-    [cell reloadData:cellModel.data];
-    if (self.cellForRowBlock) self.cellForRowBlock(cellModel, cell, indexPath);
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
-    if (self.willDisplayCellBlock) self.willDisplayCellBlock(cellModel, (XJTableViewCell *)cell, indexPath);
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self deselectRowAtIndexPath:indexPath animated:YES];
-
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:didSelectRowAtIndexPath:)]) {
-        [self.tableViewDelegate xj_tableView:tableView didSelectRowAtIndexPath:indexPath];
-        return;
-    }
-
-    if (self.didSelectRowBlock)
-    {
-        XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
-        self.didSelectRowBlock(cellModel, indexPath);
+    if (self.style == UITableViewStyleGrouped) {
+        self.defaultGroupHeaderHeight = CGFLOAT_MIN;
     }
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)disableGroupFooterHeight
 {
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:canEditRowAtIndexPath:)]) {
-        return [self.tableViewDelegate xj_tableView:tableView canEditRowAtIndexPath:indexPath];
-    }
-    return NO;
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView
-           editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:editingStyleForRowAtIndexPath:)]) {
-        return [self.tableViewDelegate xj_tableView:tableView editingStyleForRowAtIndexPath:indexPath];
-    }
-
-    return UITableViewCellEditingStyleNone;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:commitEditingStyle:forRowAtIndexPath:)]) {
-        return [self.tableViewDelegate xj_tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+    if (self.style == UITableViewStyleGrouped) {
+        self.defaultGroupFooterHeight = CGFLOAT_MIN;
     }
 }
 
-- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(nullable NSIndexPath *)indexPath
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:didEndEditingRowAtIndexPath:)]) {
-        return [self.tableViewDelegate xj_tableView:tableView didEndEditingRowAtIndexPath:indexPath];
-    }
+#pragma mark - ScrollView block
+
+- (void)addDidSelectRowBlock:(XJTableViewDidSelectRowBlock)rowBlock {
+    self.didSelectRowBlock = rowBlock;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:canMoveRowAtIndexPath:)]) {
-        return [self.tableViewDelegate xj_tableView:tableView canMoveRowAtIndexPath:indexPath];
-    }
-    return NO;
+- (void)addCellForRowBlock:(XJTableViewCellForRowBlock)rowBlock {
+    self.cellForRowBlock = rowBlock;
 }
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
-{
-    if ([self.tableViewDelegate respondsToSelector:@selector(xj_tableView:moveRowAtIndexPath:toIndexPath:)]) {
-        return [self.tableViewDelegate xj_tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
-    }
+- (void)addWillDisplayCellBlock:(XJTableViewWillDisplayCellBlock)cellBlock {
+    self.willDisplayCellBlock = cellBlock;
 }
 
-#pragma mark - UIScrollView Delegate
+- (void)addScrollViewDidScrollBlock:(XJScrollViewDidScrollBlock)scrollViewDidScrollBlock {
+    self.scrollViewDidScrollBlock = scrollViewDidScrollBlock;
+}
+
+- (void)addScrollViewWillBeginDraggingBlock:(XJScrollViewWillBeginDraggingBlock)scrollViewWillBeginDraggingBlock {
+    self.scrollViewWillBeginDraggingBlock = scrollViewWillBeginDraggingBlock;
+}
+
+#pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -473,41 +522,5 @@
     }
 }
 
-#pragma mark
-
-- (NSArray *)allDataModels {
-    return self.dataModels;
-}
-
-- (nullable XJTableViewDataModel *)dataModelAtSectionIndex:(NSInteger)sectionIndex
-{
-    if (sectionIndex >= self.dataModels.count) {
-        return nil;
-    }
-    XJTableViewDataModel *dataModel = [self.dataModels objectAtIndex:sectionIndex];
-    return dataModel;
-}
-
-- (nullable XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath
-{
-    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:indexPath.section];
-    if (indexPath.row >= dataModel.rows.count) {
-        return nil;
-    }
-    XJTableViewCellModel *cellModel = [dataModel.rows objectAtIndex:indexPath.row];
-    return cellModel;
-}
-
-- (nullable XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath
-{
-    XJTableViewDataModel *dataModel = [self dataModelAtSectionIndex:indexPath.section];
-    return dataModel.section;
-}
-
-- (nullable NSString *)sessionIdAtIndexPath:(NSIndexPath *)indexPath
-{
-    XJTableViewHeaderModel *headerModel = [self headerModelAtIndexPath:indexPath];
-    return headerModel.sectionId;
-}
 
 @end

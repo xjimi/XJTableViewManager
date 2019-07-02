@@ -52,7 +52,7 @@
 }
 
 - (void)reloadData {
-    [self.tableView resetDataModel:[self createDataModelWithIndex:0]];
+    [self.tableView refreshDataModel:[self createDataModelWithIndex:0]];
 }
 
 - (XJTableViewDataModel *)createDataModelWithIndex:(NSInteger)index

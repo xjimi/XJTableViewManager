@@ -37,27 +37,16 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 
 + (instancetype)managerWithStyle:(UITableViewStyle)style;
 
-/** 將 UITableViewStyleGrouped 的上下間距設為 0 **/
-- (void)disableGroupHeaderHeight;
-- (void)disableGroupFooterHeight;
-
-- (void)addCellForRowBlock:(XJTableViewCellForRowBlock)rowBlock;
-- (void)addWillDisplayCellBlock:(XJTableViewWillDisplayCellBlock)cellBlock;
-- (void)addDidSelectRowBlock:(XJTableViewDidSelectRowBlock)rowBlock;
-
-- (void)addScrollViewDidScrollBlock:(XJScrollViewDidScrollBlock)scrollViewDidScrollBlock;
-- (void)addScrollViewWillBeginDraggingBlock:(XJScrollViewWillBeginDraggingBlock)scrollViewWillBeginDraggingBlock;
-
 /** Set DataModel **/
-- (void)resetDataModel:(XJTableViewDataModel *)dataModel;
-- (void)resetDataModels:(NSArray <XJTableViewDataModel *> *)dataModels;
+- (void)refreshDataModel:(XJTableViewDataModel *)dataModel;
+- (void)refreshDataModels:(NSArray <XJTableViewDataModel *> *)dataModels;
 
 - (void)appendDataModel:(XJTableViewDataModel *)dataModel;
-- (void)appendDataModels:(NSArray *)dataModels;
+- (void)appendDataModels:(NSArray <XJTableViewDataModel *> *)dataModels;
 - (void)appendRowsWithDataModel:(XJTableViewDataModel *)dataModel;
 
 - (void)insertDataModel:(XJTableViewDataModel *)dataModel atSectionIndex:(NSInteger)sectionIndex;
-- (void)insertDataModels:(NSArray *)dataModel atSectionIndex:(NSInteger)sectionIndex;
+- (void)insertDataModels:(NSArray <XJTableViewDataModel *> *)dataModel atSectionIndex:(NSInteger)sectionIndex;
 
 /** Get DataModel **/
 - (NSArray *)allDataModels;
@@ -65,6 +54,20 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 - (nullable XJTableViewCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath;
 - (nullable XJTableViewHeaderModel *)headerModelAtIndexPath:(NSIndexPath *)indexPath;
 - (nullable NSString *)sessionIdAtIndexPath:(NSIndexPath *)indexPath;
+
+/** 將 UITableViewStyleGrouped 的上下間距設為 0 **/
+- (void)disableGroupHeaderHeight;
+- (void)disableGroupFooterHeight;
+
+/** 使用 Block 監聽 TableView 事件 **/
+- (void)addCellForRowBlock:(XJTableViewCellForRowBlock)rowBlock;
+- (void)addWillDisplayCellBlock:(XJTableViewWillDisplayCellBlock)cellBlock;
+- (void)addDidSelectRowBlock:(XJTableViewDidSelectRowBlock)rowBlock;
+
+/** 使用 Block 監聽 ScrollView 事件 **/
+- (void)addScrollViewDidScrollBlock:(XJScrollViewDidScrollBlock)scrollViewDidScrollBlock;
+- (void)addScrollViewWillBeginDraggingBlock:(XJScrollViewWillBeginDraggingBlock)scrollViewWillBeginDraggingBlock;
+
 
 @end
 

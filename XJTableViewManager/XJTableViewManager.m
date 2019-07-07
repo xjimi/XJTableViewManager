@@ -354,6 +354,10 @@
     }
 }
 
+- (void)removeDataModel:(XJTableViewDataModel *)dataModel {
+    [self.dataModels removeObject:dataModel];
+}
+
 #pragma mark - Get dataModel
 
 - (NSArray *)allDataModels {

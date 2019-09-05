@@ -29,6 +29,10 @@ typedef void (^XJScrollViewDidScrollBlock) (UIScrollView *scrollView);
 
 typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 
+typedef void (^XJScrollViewDidEndDraggingBlock) (UIScrollView *scrollView, BOOL decelerate);
+
+typedef void (^XJScrollViewDidEndDeceleratingBlock) (UIScrollView *scrollView);
+
 @interface XJTableViewManager : UITableView
 
 @property (nonatomic, weak, nullable) id < XJTableViewDelegate > tableViewDelegate;
@@ -69,7 +73,8 @@ typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);
 /** 使用 Block 監聽 ScrollView 事件 **/
 - (void)addScrollViewDidScrollBlock:(XJScrollViewDidScrollBlock)scrollViewDidScrollBlock;
 - (void)addScrollViewWillBeginDraggingBlock:(XJScrollViewWillBeginDraggingBlock)scrollViewWillBeginDraggingBlock;
-
+- (void)addScrollViewDidEndDraggingBlock:(XJScrollViewDidEndDraggingBlock)scrollViewDidEndDraggingBlock;
+- (void)addScrollViewDidEndDeceleratingBlock:(XJScrollViewDidEndDeceleratingBlock)scrollViewDidEndDeceleratingBlock;
 
 @end
 

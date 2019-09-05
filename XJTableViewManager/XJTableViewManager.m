@@ -18,6 +18,8 @@
 @property (nonatomic, copy)   XJTableViewDidSelectRowBlock didSelectRowBlock;
 @property (nonatomic, copy)   XJScrollViewDidScrollBlock scrollViewDidScrollBlock;
 @property (nonatomic, copy)   XJScrollViewWillBeginDraggingBlock scrollViewWillBeginDraggingBlock;
+@property (nonatomic, copy)   XJScrollViewDidEndDraggingBlock scrollViewDidEndDraggingBlock;
+@property (nonatomic, copy)   XJScrollViewDidEndDeceleratingBlock scrollViewDidEndDeceleratingBlock;
 @property (nonatomic, assign) CGFloat defaultGroupHeaderHeight;
 @property (nonatomic, assign) CGFloat defaultGroupFooterHeight;
 
@@ -510,6 +512,14 @@
     self.scrollViewWillBeginDraggingBlock = scrollViewWillBeginDraggingBlock;
 }
 
+- (void)addScrollViewDidEndDraggingBlock:(XJScrollViewDidEndDraggingBlock)scrollViewDidEndDraggingBlock {
+    self.scrollViewDidEndDraggingBlock = scrollViewDidEndDraggingBlock;
+}
+
+- (void)addScrollViewDidEndDeceleratingBlock:(XJScrollViewDidEndDeceleratingBlock)scrollViewDidEndDeceleratingBlock {
+    self.scrollViewDidEndDeceleratingBlock = scrollViewDidEndDeceleratingBlock;
+}
+
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -526,5 +536,18 @@
     }
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (self.scrollViewDidEndDeceleratingBlock) {
+        self.scrollViewDidEndDeceleratingBlock(scrollView);
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (self.scrollViewDidEndDraggingBlock) {
+        self.scrollViewDidEndDraggingBlock(scrollView, decelerate);
+    }
+}
 
 @end

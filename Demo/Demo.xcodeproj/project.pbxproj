@@ -10,6 +10,8 @@
 		5C4119BFC3F60D264214584C /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A96F84A21CC3DB2D0B731C1E /* Pods_Demo.framework */; };
 		903CD7F822A7CC27003FF3FF /* AlbumHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 903CD7F722A7CC27003FF3FF /* AlbumHeader.m */; };
 		903CD7FA22A7CC35003FF3FF /* AlbumHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 903CD7F922A7CC35003FF3FF /* AlbumHeader.xib */; };
+		904E115F23C08DC600DC6CBF /* AlbumFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 904E115E23C08DC600DC6CBF /* AlbumFooter.m */; };
+		904E116123C08E1000DC6CBF /* AlbumFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E116023C08E1000DC6CBF /* AlbumFooter.xib */; };
 		90520CAD21CB5AC400B905C9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90520CAC21CB5AC400B905C9 /* AppDelegate.m */; };
 		90520CB321CB5AC400B905C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90520CB121CB5AC400B905C9 /* Main.storyboard */; };
 		90520CB521CB5AC500B905C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90520CB421CB5AC500B905C9 /* Assets.xcassets */; };
@@ -27,6 +29,9 @@
 		903CD7F622A7CC27003FF3FF /* AlbumHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlbumHeader.h; sourceTree = "<group>"; };
 		903CD7F722A7CC27003FF3FF /* AlbumHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlbumHeader.m; sourceTree = "<group>"; };
 		903CD7F922A7CC35003FF3FF /* AlbumHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumHeader.xib; sourceTree = "<group>"; };
+		904E115D23C08DC600DC6CBF /* AlbumFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlbumFooter.h; sourceTree = "<group>"; };
+		904E115E23C08DC600DC6CBF /* AlbumFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlbumFooter.m; sourceTree = "<group>"; };
+		904E116023C08E1000DC6CBF /* AlbumFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumFooter.xib; sourceTree = "<group>"; };
 		90520CA821CB5AC400B905C9 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90520CAB21CB5AC400B905C9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		90520CAC21CB5AC400B905C9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -136,6 +141,9 @@
 				903CD7F622A7CC27003FF3FF /* AlbumHeader.h */,
 				903CD7F722A7CC27003FF3FF /* AlbumHeader.m */,
 				903CD7F922A7CC35003FF3FF /* AlbumHeader.xib */,
+				904E115D23C08DC600DC6CBF /* AlbumFooter.h */,
+				904E115E23C08DC600DC6CBF /* AlbumFooter.m */,
+				904E116023C08E1000DC6CBF /* AlbumFooter.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -199,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				904E116123C08E1000DC6CBF /* AlbumFooter.xib in Resources */,
 				903CD7FA22A7CC35003FF3FF /* AlbumHeader.xib in Resources */,
 				90520CB821CB5AC500B905C9 /* LaunchScreen.storyboard in Resources */,
 				90520CB521CB5AC500B905C9 /* Assets.xcassets in Resources */,
@@ -256,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				904E115F23C08DC600DC6CBF /* AlbumFooter.m in Sources */,
 				903CD7F822A7CC27003FF3FF /* AlbumHeader.m in Sources */,
 				9061036622A632A700A746E1 /* AlbumsViewController.m in Sources */,
 				9061036A22A7B6AF00A746E1 /* AlbumCell.m in Sources */,

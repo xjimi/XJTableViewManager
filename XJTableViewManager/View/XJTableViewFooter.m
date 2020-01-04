@@ -14,8 +14,9 @@
     return NSStringFromClass([self class]);
 }
 
-+ (UINib *)nib {
-    NSString *identifier = [self identifier];
++ (UINib *)nib
+{
+    NSString *identifier = [XJTableViewFooter identifier];
     return identifier.length ? [UINib nibWithNibName:identifier bundle:nil] : nil;
 }
 

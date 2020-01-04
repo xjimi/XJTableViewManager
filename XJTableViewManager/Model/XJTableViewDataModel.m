@@ -10,24 +10,24 @@
 
 @implementation XJTableViewDataModel
 
-+ (XJTableViewDataModel *)modelWithSection:(nullable XJTableViewHeaderModel *)headerModel
-                                      rows:(NSArray *)rows
++ (XJTableViewDataModel *)modelWithHeader:(nullable XJTableViewHeaderModel *)headerModel
+                                     rows:(NSArray *)rows
 {
-    return [XJTableViewDataModel modelWithSection:headerModel footer:nil rows:rows];
+    return [XJTableViewDataModel modelWithHeader:headerModel footer:nil rows:rows];
 }
 
 + (XJTableViewDataModel *)modelWithFooter:(nullable XJTableViewFooterModel *)footerModel
                                      rows:(NSArray *)rows;
 {
-    return [XJTableViewDataModel modelWithSection:nil footer:footerModel rows:rows];
+    return [XJTableViewDataModel modelWithHeader:nil footer:footerModel rows:rows];
 }
 
-+ (XJTableViewDataModel *)modelWithSection:(nullable XJTableViewHeaderModel *)headerModel
-                                    footer:(nullable XJTableViewFooterModel *)footerModel
-                                      rows:(NSArray *)rows
++ (XJTableViewDataModel *)modelWithHeader:(nullable XJTableViewHeaderModel *)headerModel
+                                   footer:(nullable XJTableViewFooterModel *)footerModel
+                                     rows:(NSArray *)rows
 {
     XJTableViewDataModel *dataModel = [[XJTableViewDataModel alloc] init];
-    dataModel.section = headerModel ? : [XJTableViewHeaderModel emptyModel];
+    dataModel.header = headerModel ? : [XJTableViewHeaderModel emptyModel];
     dataModel.footer  = footerModel;
     dataModel.rows = rows.mutableCopy;
     return dataModel;

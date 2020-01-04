@@ -17,14 +17,14 @@
 @implementation XJTableViewFooterModel
 
 + (XJTableViewFooterModel *)modelWithReuseIdentifier:(NSString *)identifier
-                                        headerHeight:(CGFloat)height
+                                        footerHeight:(CGFloat)height
                                                 data:(nullable id)data
 {
-    XJTableViewFooterModel *headerModel = [[XJTableViewFooterModel alloc] init];
-    headerModel.identifier = identifier;
-    headerModel.height = height;
-    headerModel.data = data;
-    return headerModel;
+    XJTableViewFooterModel *footerModel = [[XJTableViewFooterModel alloc] init];
+    footerModel.identifier = identifier;
+    footerModel.height = height;
+    footerModel.data = data;
+    return footerModel;
 }
 
 @end

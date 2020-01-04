@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) id data;
 
 + (XJTableViewFooterModel *)modelWithReuseIdentifier:(NSString *)identifier
-                                        headerHeight:(CGFloat)height
+                                        footerHeight:(CGFloat)height
                                                 data:(nullable id)data;
 @end
 

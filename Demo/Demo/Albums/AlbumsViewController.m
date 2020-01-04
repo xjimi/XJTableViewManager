@@ -10,6 +10,7 @@
 #import "AlbumModel.h"
 #import "AlbumCell.h"
 #import "AlbumHeader.h"
+#import "AlbumFooter.h"
 #import <Masonry/Masonry.h>
 
 @interface AlbumsViewController ()
@@ -49,6 +50,40 @@
     }];
 
     self.tableView = tableView;
+
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView updateCellModelAtIndexPath:indexPath
+                              updateCellModelBlock:^XJTableViewCellModel * _Nullable(XJTableViewCellModel * _Nullable cellModel) {
+
+            AlbumModel *albumModel = cellModel.data;
+            albumModel.albumName = @"abbbbbb";
+            cellModel.height = 130;
+            return cellModel;
+
+        }];
+
+        /*
+        NSIndexPath *indexPath_1 = [NSIndexPath indexPathForRow:1 inSection:0];
+        NSIndexPath *indexPath_2 = [NSIndexPath indexPathForRow:2 inSection:0];
+        [self.tableView updateCellModelsAtIndexPaths:@[indexPath, indexPath_1, indexPath_2]
+                               updateCellModelsBlock:^NSArray * _Nullable(NSArray * _Nullable cellModels) {
+
+
+            for (XJTableViewCellModel *cellModel in cellModels) {
+                AlbumModel *albumModel = cellModel.data;
+                albumModel.albumName = @"abbbbbb";
+                cellModel.height = 100;
+            }
+
+            return cellModels;
+        }];
+         */
+
+    });
+
 }
 
 - (void)reloadData {
@@ -58,7 +93,8 @@
 - (XJTableViewDataModel *)createDataModelWithIndex:(NSInteger)index
 {
     XJTableViewDataModel *dataModel = [XJTableViewDataModel
-                                       modelWithSection:[self createHeaderModelWithIndex:index]
+                                       modelWithHeader:[self createHeaderModelWithIndex:index]
+                                       footer:[self createFooterModelWithIndex:index]
                                        rows:[self createRows]];
     return dataModel;
 }
@@ -72,6 +108,17 @@
                                            data:setion];
     return headerModel;
 }
+
+- (XJTableViewFooterModel *)createFooterModelWithIndex:(NSInteger)index
+{
+    NSString *setion = [NSString stringWithFormat:@"footer %ld", (long)self.tableView.allDataModels.count + index];
+    XJTableViewFooterModel *footerModel = [XJTableViewFooterModel
+                                           modelWithReuseIdentifier:[AlbumFooter identifier]
+                                           footerHeight:50.0f
+                                           data:setion];
+    return footerModel;
+}
+
 
 - (NSMutableArray *)createRows
 {
@@ -103,15 +150,15 @@
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-        XJTableViewHeaderModel *section = nil;
+        XJTableViewHeaderModel *header = nil;
         if (sectionIndex < self.tableView.allDataModels.count)
         {
             XJTableViewDataModel *dataModel = [self.tableView.allDataModels objectAtIndex:sectionIndex];
-            section = dataModel.section;
+            header = dataModel.header;
         }
 
         XJTableViewDataModel *newDataModel = [XJTableViewDataModel
-                                              modelWithSection:section
+                                              modelWithHeader:header
                                               rows:[self createRows]];
         [self.tableView appendRowsWithDataModel:newDataModel];
 
@@ -142,16 +189,16 @@
 {
     if (!self.inputField.text.length) return;
 
-    NSInteger sectionIndex = [self.inputField.text integerValue];
+    //NSInteger sectionIndex = [self.inputField.text integerValue];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
         NSMutableArray *dataModels = [NSMutableArray array];
-        for (NSInteger i = 0 ; i < 3; i ++) {
+        for (NSInteger i = 0 ; i < 1; i ++) {
             XJTableViewDataModel *dataModel = [self createDataModelWithIndex:i];
             [dataModels addObject:dataModel];
         }
 
-        [self.tableView insertDataModels:dataModels atSectionIndex:sectionIndex];
+        [self.tableView insertDataModels:dataModels atSectionIndex:0];
 
     });
 }

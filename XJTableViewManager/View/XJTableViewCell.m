@@ -14,8 +14,9 @@
     return NSStringFromClass([self class]);
 }
 
-+ (UINib *)nib {
-    NSString *identifier = [self identifier];
++ (UINib *)nib
+{
+    NSString *identifier = [XJTableViewCell identifier];
     return identifier.length ? [UINib nibWithNibName:identifier bundle:nil] : nil; 
 }
 
@@ -24,11 +25,6 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
     }
     return self;
-}
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
 }
 
 - (void)reloadData:(id)data {

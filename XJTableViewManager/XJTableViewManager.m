@@ -407,7 +407,7 @@
 - (void)updateCellModelAtIndexPath:(NSIndexPath *)indexPath
               updateCellModelBlock:(XJTableViewCellModel * _Nullable (^)(XJTableViewCellModel * _Nullable cellModel))cellModelBlock
 {
-    if (cellModelBlock) return;
+    if (!cellModelBlock) return;
 
     XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
     XJTableViewCellModel *returnCellModel = cellModelBlock(cellModel);
@@ -439,6 +439,7 @@
 {
     if (!headerModelBlock) return;
 
+    XJTableViewHeaderModel *headerModel = [self headerModelAtIndexPath:indexPath];
     XJTableViewHeaderModel *returnHeaderModel = headerModelBlock(headerModel);
     if (returnHeaderModel) {
         [self reloadData];
@@ -448,7 +449,7 @@
 - (void)updateFooterModelAtIndexPath:(NSIndexPath *)indexPath
               updateFooterModelBlock:(XJTableViewFooterModel * _Nullable (^)(XJTableViewFooterModel * _Nullable footerModel))footerModelBlock
 {
-    if (footerModelBlock) return;
+    if (!footerModelBlock) return;
 
     XJTableViewFooterModel *footerModel = [self footerModelAtIndexPath:indexPath];
     XJTableViewFooterModel *returnFooterModel = footerModelBlock(footerModel);

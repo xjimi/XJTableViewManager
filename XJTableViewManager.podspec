@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name          = "XJTableViewManager"
-  s.version       = "0.1.83"
+  s.version       = "0.2.0"
   s.summary       = "Easy to use UITableView"
   s.homepage      = "https://github.com/xjimi/XJTableViewManager"
   s.license       = { :type => 'MIT', :file => 'LICENSE' }

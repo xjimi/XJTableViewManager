@@ -5,16 +5,20 @@ import PackageDescription
 
 let package = Package(
     name: "XJTableViewManager",
-    platforms: [.iOS(.v10)],
+    platforms: [
+        .iOS(.v10)
+    ],
 
     products: [
         .library(
             name: "XJTableViewManager",
             targets: ["XJTableViewManager"]),
     ],
+    
     targets: [
         .target(
             name: "XJTableViewManager",
-            path: "Sources"),
+            path: "Sources",
+        ),
     ]
 )

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name          = "XJTableViewManager"
-  s.version       = "0.2.2"
+  s.version       = "0.2.3"
   s.summary       = "Easy to use UITableView"
   s.homepage      = "https://github.com/xjimi/XJTableViewManager"
   s.license       = { :type => 'MIT', :file => 'LICENSE' }
@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.source_files  = "XJTableViewManager", "Sources/**/*.{h,m}"
   s.requires_arc  = true
   s.frameworks    = 'Foundation', 'UIKit'
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
 
 end

@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSMutableArray *registeredCells;
 @property (nonatomic, copy)   XJTableViewCellForRowBlock cellForRowBlock;
 @property (nonatomic, copy)   XJTableViewWillDisplayCellBlock willDisplayCellBlock;
+@property (nonatomic, copy)   XJTableViewDidEndDisplayCellBlock didEndDisplayCellBlock;
 @property (nonatomic, copy)   XJTableViewDidSelectRowBlock didSelectRowBlock;
 @property (nonatomic, copy)   XJScrollViewDidScrollBlock scrollViewDidScrollBlock;
 @property (nonatomic, copy)   XJScrollViewWillBeginDraggingBlock scrollViewWillBeginDraggingBlock;
@@ -122,7 +123,7 @@
 
     XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
     XJTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellModel.identifier forIndexPath:indexPath];
-    [cell layoutIfNeeded];
+
     cell.delegate = cellModel.delegate;
     cell.indexPath = indexPath;
     [cell reloadData:cellModel.data];
@@ -160,6 +161,15 @@
     {
         XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
         self.willDisplayCellBlock(cellModel, (XJTableViewCell *)cell, indexPath);
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.didEndDisplayCellBlock)
+    {
+        XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
+        self.didEndDisplayCellBlock(cellModel, (XJTableViewCell *)cell, indexPath);
     }
 }
 

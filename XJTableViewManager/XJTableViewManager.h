@@ -25,6 +25,8 @@ typedef void (^XJTableViewDidSelectRowBlock) (XJTableViewCellModel *cellModel, N
 
 typedef void (^XJTableViewWillDisplayCellBlock) (XJTableViewCellModel *cellModel, XJTableViewCell *cell, NSIndexPath *indexPath);
 
+typedef void (^XJTableViewDidEndDisplayCellBlock) (XJTableViewCellModel *cellModel, XJTableViewCell *cell, NSIndexPath *indexPath);
+
 typedef void (^XJScrollViewDidScrollBlock) (UIScrollView *scrollView);
 
 typedef void (^XJScrollViewWillBeginDraggingBlock) (UIScrollView *scrollView);

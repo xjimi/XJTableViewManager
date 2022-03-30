@@ -5,6 +5,9 @@
 //  Created by XJIMI on 2018/12/20.
 //
 
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol XJTableViewDelegate < NSObject >

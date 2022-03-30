@@ -6,6 +6,7 @@
 //  Copyright © 2015年 XJIMI. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "XJTableViewHeaderModel.h"
 #import "XJTableViewFooterModel.h"

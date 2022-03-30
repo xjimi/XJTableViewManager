@@ -1,0 +1,89 @@
+client:
+  name: basic
+tools: {}
+targets:
+  "PackageStructure": ["<PackageStructure>"]
+  "XJTableViewManager-debug.module": ["<XJTableViewManager-debug.module>"]
+  "main": ["<XJTableViewManager-debug.module>"]
+  "test": ["<XJTableViewManager-debug.module>"]
+default: "main"
+nodes:
+  "/Users/jimi/github/XJTableViewManager/Sources/":
+    is-directory-structure: true
+commands:
+  "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewCellModel.m.o":
+    tool: clang
+    inputs: ["/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/Model/XJTableViewCellModel.m"]
+    outputs: ["/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewCellModel.m.o"]
+    description: "Compiling XJTableViewManager XJTableViewManager/Model/XJTableViewCellModel.m"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang","-fobjc-arc","-target","x86_64-apple-macosx10.10","-isysroot","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-fPIC","-g","-O0","-DSWIFT_PACKAGE=1","-DDEBUG=1","-fblocks","-index-store-path","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/index/store","-fmodules","-fmodule-name=XJTableViewManager","-I","/Users/jimi/github/XJTableViewManager/Sources/include","-fmodules-cache-path=/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/ModuleCache","-MD","-MT","dependencies","-MF","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewCellModel.m.d","-c","/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/Model/XJTableViewCellModel.m","-o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewCellModel.m.o"]
+    deps: "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewCellModel.m.d"
+
+  "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewDataModel.m.o":
+    tool: clang
+    inputs: ["/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/Model/XJTableViewDataModel.m"]
+    outputs: ["/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewDataModel.m.o"]
+    description: "Compiling XJTableViewManager XJTableViewManager/Model/XJTableViewDataModel.m"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang","-fobjc-arc","-target","x86_64-apple-macosx10.10","-isysroot","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-fPIC","-g","-O0","-DSWIFT_PACKAGE=1","-DDEBUG=1","-fblocks","-index-store-path","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/index/store","-fmodules","-fmodule-name=XJTableViewManager","-I","/Users/jimi/github/XJTableViewManager/Sources/include","-fmodules-cache-path=/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/ModuleCache","-MD","-MT","dependencies","-MF","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewDataModel.m.d","-c","/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/Model/XJTableViewDataModel.m","-o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewDataModel.m.o"]
+    deps: "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewDataModel.m.d"
+
+  "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewFooterModel.m.o":
+    tool: clang
+    inputs: ["/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/Model/XJTableViewFooterModel.m"]
+    outputs: ["/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewFooterModel.m.o"]
+    description: "Compiling XJTableViewManager XJTableViewManager/Model/XJTableViewFooterModel.m"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang","-fobjc-arc","-target","x86_64-apple-macosx10.10","-isysroot","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-fPIC","-g","-O0","-DSWIFT_PACKAGE=1","-DDEBUG=1","-fblocks","-index-store-path","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/index/store","-fmodules","-fmodule-name=XJTableViewManager","-I","/Users/jimi/github/XJTableViewManager/Sources/include","-fmodules-cache-path=/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/ModuleCache","-MD","-MT","dependencies","-MF","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewFooterModel.m.d","-c","/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/Model/XJTableViewFooterModel.m","-o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewFooterModel.m.o"]
+    deps: "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewFooterModel.m.d"
+
+  "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewHeaderModel.m.o":
+    tool: clang
+    inputs: ["/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/Model/XJTableViewHeaderModel.m"]
+    outputs: ["/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewHeaderModel.m.o"]
+    description: "Compiling XJTableViewManager XJTableViewManager/Model/XJTableViewHeaderModel.m"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang","-fobjc-arc","-target","x86_64-apple-macosx10.10","-isysroot","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-fPIC","-g","-O0","-DSWIFT_PACKAGE=1","-DDEBUG=1","-fblocks","-index-store-path","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/index/store","-fmodules","-fmodule-name=XJTableViewManager","-I","/Users/jimi/github/XJTableViewManager/Sources/include","-fmodules-cache-path=/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/ModuleCache","-MD","-MT","dependencies","-MF","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewHeaderModel.m.d","-c","/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/Model/XJTableViewHeaderModel.m","-o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewHeaderModel.m.o"]
+    deps: "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewHeaderModel.m.d"
+
+  "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewCell.m.o":
+    tool: clang
+    inputs: ["/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/View/XJTableViewCell.m"]
+    outputs: ["/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewCell.m.o"]
+    description: "Compiling XJTableViewManager XJTableViewManager/View/XJTableViewCell.m"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang","-fobjc-arc","-target","x86_64-apple-macosx10.10","-isysroot","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-fPIC","-g","-O0","-DSWIFT_PACKAGE=1","-DDEBUG=1","-fblocks","-index-store-path","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/index/store","-fmodules","-fmodule-name=XJTableViewManager","-I","/Users/jimi/github/XJTableViewManager/Sources/include","-fmodules-cache-path=/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/ModuleCache","-MD","-MT","dependencies","-MF","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewCell.m.d","-c","/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/View/XJTableViewCell.m","-o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewCell.m.o"]
+    deps: "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewCell.m.d"
+
+  "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewFooter.m.o":
+    tool: clang
+    inputs: ["/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/View/XJTableViewFooter.m"]
+    outputs: ["/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewFooter.m.o"]
+    description: "Compiling XJTableViewManager XJTableViewManager/View/XJTableViewFooter.m"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang","-fobjc-arc","-target","x86_64-apple-macosx10.10","-isysroot","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-fPIC","-g","-O0","-DSWIFT_PACKAGE=1","-DDEBUG=1","-fblocks","-index-store-path","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/index/store","-fmodules","-fmodule-name=XJTableViewManager","-I","/Users/jimi/github/XJTableViewManager/Sources/include","-fmodules-cache-path=/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/ModuleCache","-MD","-MT","dependencies","-MF","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewFooter.m.d","-c","/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/View/XJTableViewFooter.m","-o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewFooter.m.o"]
+    deps: "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewFooter.m.d"
+
+  "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewHeader.m.o":
+    tool: clang
+    inputs: ["/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/View/XJTableViewHeader.m"]
+    outputs: ["/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewHeader.m.o"]
+    description: "Compiling XJTableViewManager XJTableViewManager/View/XJTableViewHeader.m"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang","-fobjc-arc","-target","x86_64-apple-macosx10.10","-isysroot","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-fPIC","-g","-O0","-DSWIFT_PACKAGE=1","-DDEBUG=1","-fblocks","-index-store-path","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/index/store","-fmodules","-fmodule-name=XJTableViewManager","-I","/Users/jimi/github/XJTableViewManager/Sources/include","-fmodules-cache-path=/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/ModuleCache","-MD","-MT","dependencies","-MF","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewHeader.m.d","-c","/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/View/XJTableViewHeader.m","-o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewHeader.m.o"]
+    deps: "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewHeader.m.d"
+
+  "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/XJTableViewManager.m.o":
+    tool: clang
+    inputs: ["/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/XJTableViewManager.m"]
+    outputs: ["/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/XJTableViewManager.m.o"]
+    description: "Compiling XJTableViewManager XJTableViewManager/XJTableViewManager.m"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang","-fobjc-arc","-target","x86_64-apple-macosx10.10","-isysroot","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-fPIC","-g","-O0","-DSWIFT_PACKAGE=1","-DDEBUG=1","-fblocks","-index-store-path","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/index/store","-fmodules","-fmodule-name=XJTableViewManager","-I","/Users/jimi/github/XJTableViewManager/Sources/include","-fmodules-cache-path=/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/ModuleCache","-MD","-MT","dependencies","-MF","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/XJTableViewManager.m.d","-c","/Users/jimi/github/XJTableViewManager/Sources/XJTableViewManager/XJTableViewManager.m","-o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/XJTableViewManager.m.o"]
+    deps: "/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/XJTableViewManager.m.d"
+
+  "<XJTableViewManager-debug.module>":
+    tool: phony
+    inputs: ["/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewCellModel.m.o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewDataModel.m.o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewFooterModel.m.o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/Model/XJTableViewHeaderModel.m.o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewCell.m.o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewFooter.m.o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/View/XJTableViewHeader.m.o","/Users/jimi/github/XJTableViewManager/.build/x86_64-apple-macosx/debug/XJTableViewManager.build/XJTableViewManager/XJTableViewManager.m.o"]
+    outputs: ["<XJTableViewManager-debug.module>"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/jimi/github/XJTableViewManager/Sources/","/Users/jimi/github/XJTableViewManager/Package.swift","/Users/jimi/github/XJTableViewManager/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

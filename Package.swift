@@ -18,7 +18,6 @@ let package = Package(
     targets: [
         .target(
             name: "XJTableViewManager",
-            path: "Sources",
-        ),
+            path: "Sources"),
     ]
 )

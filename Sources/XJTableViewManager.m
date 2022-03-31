@@ -75,8 +75,8 @@
         self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 
-    self.dataModels = [NSMutableArray array];
-    self.registeredCells = [NSMutableArray array];
+    _dataModels = [NSMutableArray array];
+    _registeredCells = [NSMutableArray array];
 }
 
 #pragma mark - TableView dataSource
@@ -122,7 +122,7 @@
     }
 
     XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
-    XJTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellModel.identifier forIndexPath:indexPath];
+    XJTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellModel.identifier];
 
     cell.delegate = cellModel.delegate;
     cell.indexPath = indexPath;
@@ -327,10 +327,7 @@
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:sessionIndex]];
     }
     [curDataModel.rows addObjectsFromArray:dataModel.rows];
-
-    [UIView performWithoutAnimation:^{
-        [self insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    }];
+    [self reloadData];
 }
 
 - (void)insertDataModel:(XJTableViewDataModel *)dataModel
@@ -350,10 +347,7 @@
     }
 
     [self.dataModels insertObject:dataModel atIndex:sectionIndex];
-
-    [UIView performWithoutAnimation:^{
-        [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationNone];
-    }];
+    [self reloadData];
 }
 
 - (void)insertDataModels:(NSArray <XJTableViewDataModel *> *)dataModels
@@ -366,7 +360,10 @@
 }
 
 - (void)removeDataModel:(XJTableViewDataModel *)dataModel {
-    [self.dataModels removeObject:dataModel];
+    if ([self.dataModels containsObject:dataModel]) {
+        [self.dataModels removeObject:dataModel];
+        [self reloadData];
+    }
 }
 
 #pragma mark - Get dataModel

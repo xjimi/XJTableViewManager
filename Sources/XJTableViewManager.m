@@ -122,7 +122,8 @@
     }
 
     XJTableViewCellModel *cellModel = [self cellModelAtIndexPath:indexPath];
-    XJTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellModel.identifier];
+    XJTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellModel.identifier forIndexPath:indexPath];
+    /// dequeueReusableCellWithIdentifier 第 2 次 init 時 cell 的 frame 會重置 (ex:  frame.width = 320)
 
     cell.delegate = cellModel.delegate;
     cell.indexPath = indexPath;

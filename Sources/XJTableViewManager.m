@@ -573,6 +573,10 @@
     self.willDisplayCellBlock = cellBlock;
 }
 
+- (void)addDidEndDisplayCellBlock:(XJTableViewDidEndDisplayCellBlock)cellBlock {
+    self.didEndDisplayCellBlock = cellBlock;
+}
+
 - (void)addScrollViewDidScrollBlock:(XJScrollViewDidScrollBlock)scrollViewDidScrollBlock {
     self.scrollViewDidScrollBlock = scrollViewDidScrollBlock;
 }

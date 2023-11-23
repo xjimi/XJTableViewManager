@@ -82,6 +82,7 @@ typedef void (^XJScrollViewDidEndDeceleratingBlock) (UIScrollView *scrollView);
 /** 使用 Block 監聽 TableView 事件 **/
 - (void)addCellForRowBlock:(XJTableViewCellForRowBlock)rowBlock;
 - (void)addWillDisplayCellBlock:(XJTableViewWillDisplayCellBlock)cellBlock;
+- (void)addDidEndDisplayCellBlock:(XJTableViewDidEndDisplayCellBlock)cellBlock;
 - (void)addDidSelectRowBlock:(XJTableViewDidSelectRowBlock)rowBlock;
 
 /** 使用 Block 監聽 ScrollView 事件 **/

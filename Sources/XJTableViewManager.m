@@ -367,6 +367,16 @@
     }
 }
 
+- (void)removeDataModelWithoutReloadData:(XJTableViewDataModel *)dataModel {
+    if ([self.dataModels containsObject:dataModel]) {
+        [self.dataModels removeObject:dataModel];
+    }
+}
+
+- (void)removeAllDataModelsWithoutReloadData {
+    self.dataModels = @[];
+}
+
 #pragma mark - Get dataModel
 
 - (NSArray *)allDataModels {

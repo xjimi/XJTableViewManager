@@ -55,6 +55,8 @@ typedef void (^XJScrollViewDidEndDeceleratingBlock) (UIScrollView *scrollView);
 - (void)insertDataModels:(NSArray <XJTableViewDataModel *> *)dataModel atSectionIndex:(NSInteger)sectionIndex;
 
 - (void)removeDataModel:(XJTableViewDataModel *)dataModel;
+- (void)removeDataModelWithoutReloadData:(XJTableViewDataModel *)dataModel;
+- (void)removeAllDataModelsWithoutReloadData;
 
 - (void)updateCellModelAtIndexPath:(NSIndexPath *)indexPath
               updateCellModelBlock:(XJTableViewCellModel * _Nullable (^)(XJTableViewCellModel * _Nullable cellModel))cellModelBlock;

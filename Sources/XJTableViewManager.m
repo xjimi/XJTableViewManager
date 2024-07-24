@@ -374,7 +374,7 @@
 }
 
 - (void)removeAllDataModelsWithoutReloadData {
-    self.dataModels = @[];
+    _dataModels = @[];
 }
 
 #pragma mark - Get dataModel
